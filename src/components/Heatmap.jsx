@@ -45,6 +45,13 @@ function levelFor(count, max) {
 
 const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
+const parseUTCDate = (str) => {
+  if (!str) return null;
+  const parts = String(str).split('-').map(Number);
+  if (parts.length !== 3 || parts.some(Number.isNaN)) return null;
+  return new Date(Date.UTC(parts[0], parts[1] - 1, parts[2]));
+};
+
 export default function Heatmap({ days, ramp = 'green', weeks = 53, unit = 'contributions' }) {
   const ref = useRef(null);
   const [play, setPlay] = useState(false);
@@ -75,11 +82,36 @@ export default function Heatmap({ days, ramp = 'green', weeks = 53, unit = 'cont
 
   if (!days?.length) return null;
 
-  const recent = days.slice(-(weeks * 7));
-  const chunks = [];
-  for (let i = 0; i < recent.length; i += 7) chunks.push(recent.slice(i, i + 7));
+  // 1. Determine start day of week (0=Sun, 1=Mon, ..., 6=Sat) of the first real date
+  const firstRealDate = parseUTCDate(days[0]?.date);
+  const startDayOfWeek = firstRealDate ? firstRealDate.getUTCDay() : 0;
 
-  const max = Math.max(...recent.map((d) => d.count || 0), 1);
+  // 2. Add leading padding so Row 0 is always Sunday
+  const padded = [];
+  for (let i = 0; i < startDayOfWeek; i += 1) {
+    padded.push({ date: null, count: 0, isPadding: true });
+  }
+  padded.push(...days);
+
+  // 3. Add trailing padding so the final week column ends on Saturday (row 6)
+  const remainder = padded.length % 7;
+  if (remainder !== 0) {
+    for (let i = 0; i < 7 - remainder; i += 1) {
+      padded.push({ date: null, count: 0, isPadding: true });
+    }
+  }
+
+  // 4. Chunk into 7-day week columns
+  const allChunks = [];
+  for (let i = 0; i < padded.length; i += 7) {
+    allChunks.push(padded.slice(i, i + 7));
+  }
+
+  // Limit visible columns to `weeks` if requested
+  const chunks = weeks ? allChunks.slice(-weeks) : allChunks;
+
+  // Calculate max count for color levels (excluding padding)
+  const max = Math.max(...days.map((d) => d.count || 0), 1);
   const colors = RAMPS[ramp] || RAMPS.green;
 
   /* A month label above the first week of each month. Columns are flexible, so
@@ -88,16 +120,18 @@ export default function Heatmap({ days, ramp = 'green', weeks = 53, unit = 'cont
   const MIN_GAP = 3;
   let lastLabelled = -MIN_GAP;
   const labels = chunks.map((w, i) => {
-    const first = w[0];
-    if (!first?.date) return null;
-    const d = new Date(first.date);
-    if (Number.isNaN(d.getTime())) return null;
-    const prev = i > 0 ? new Date(chunks[i - 1][0]?.date) : null;
-    const startsMonth =
-      !prev || Number.isNaN(prev.getTime()) || prev.getMonth() !== d.getMonth();
+    const firstReal = w.find((d) => d.date && !d.isPadding);
+    if (!firstReal?.date) return null;
+    const d = parseUTCDate(firstReal.date);
+    if (!d) return null;
+
+    const prevReal = i > 0 ? chunks[i - 1].find((d) => d.date && !d.isPadding) : null;
+    const prevD = prevReal?.date ? parseUTCDate(prevReal.date) : null;
+
+    const startsMonth = !prevD || prevD.getUTCMonth() !== d.getUTCMonth();
     if (startsMonth && i - lastLabelled >= MIN_GAP) {
       lastLabelled = i;
-      return MONTHS[d.getMonth()];
+      return MONTHS[d.getUTCMonth()];
     }
     return null;
   });
@@ -119,8 +153,12 @@ export default function Heatmap({ days, ramp = 'green', weeks = 53, unit = 'cont
               <span
                 key={di}
                 className="hm-day"
-                style={{ background: colors[levelFor(d.count || 0, max)] }}
-                title={`${d.date}: ${d.count || 0} ${unit}`}
+                style={{
+                  background: d.isPadding ? 'transparent' : colors[levelFor(d.count || 0, max)],
+                  opacity: d.isPadding ? 0 : 1,
+                  pointerEvents: d.isPadding ? 'none' : 'auto',
+                }}
+                title={d.isPadding || !d.date ? undefined : `${d.date}: ${d.count || 0} ${unit}`}
               />
             ))}
           </div>
@@ -137,3 +175,4 @@ export default function Heatmap({ days, ramp = 'green', weeks = 53, unit = 'cont
     </div>
   );
 }
+

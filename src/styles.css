@@ -770,7 +770,7 @@ img { max-width: 100%; display: block; }
   transform: translateY(-50%);
   display: none; pointer-events: none; z-index: 0;
 }
-@media (min-width: 1080px) { .hero-orb { display: block; } }
+@media (min-width: 900px) { .hero-orb { display: block; } }
 
 /* ---------- developer page ---------- */
 .dev-hero { display: grid; grid-template-columns: 1fr; gap: 32px; align-items: center; }

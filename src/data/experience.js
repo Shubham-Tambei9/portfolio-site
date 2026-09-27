@@ -17,7 +17,7 @@ export const EXPERIENCE = [
     detail:
       'An independent Android game studio. Sky Hopper is live on Google Play; four more titles and one app are in the pipeline. I design, build, ship and maintain every one — including the generators and solvers that prove a level is fair before a player ever sees it.',
     tech: ['Unity', 'C#', 'Flutter', 'Dart', 'AdMob'],
-    url: 'https://arcadly-sky-hopper.vercel.app',
+    url: 'https://arcadly-studio.vercel.app',
   },
   {
     company: 'AICTE Edunet Foundation — Green Skills',

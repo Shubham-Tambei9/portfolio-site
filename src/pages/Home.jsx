@@ -1,10 +1,10 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { PROFILE, ROLES, STATS, LINKS } from '../data/profile.js';
 import { PROJECTS, CATEGORY_META, CATEGORIES } from '../data/projects.js';
 import { RESEARCH_PAPERS } from '../data/research.js';
 import { SKILLS } from '../data/skills.js';
 import { COURSEWORK_GROUPS } from '../data/education.js';
-import FluidOrb from '../components/FluidOrb.jsx';
+import { ThinkingOrb } from 'thinking-orbs';
 import Activity from '../components/Activity.jsx';
 import Journey from '../components/Journey.jsx';
 import Focus from '../components/Focus.jsx';
@@ -75,10 +75,26 @@ function ProjectCard({ p }) {
   );
 }
 
+const HERO_ORB_STATES = ['solving', 'searching', 'listening'];
+
 export default function Home() {
   const [cat, setCat] = useState('all');
   const [showAll, setShowAll] = useState(false);
   const [openPaper, setOpenPaper] = useState(null);
+  const [heroOrbStateIdx, setHeroOrbStateIdx] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setHeroOrbStateIdx((prev) => (prev + 1) % HERO_ORB_STATES.length);
+    }, 4000);
+    return () => clearInterval(timer);
+  }, []);
+
+  const heroOrbState = HERO_ORB_STATES[heroOrbStateIdx];
+
+  const toggleHeroOrb = () => {
+    setHeroOrbStateIdx((prev) => (prev + 1) % HERO_ORB_STATES.length);
+  };
 
   const filtered = PROJECTS.filter((p) => cat === 'all' || p.category === cat);
   const shown = showAll ? filtered : filtered.slice(0, 6);
@@ -111,8 +127,13 @@ export default function Home() {
             </a>
           </div>
 
-          <div className="hero-orb" aria-hidden="true">
-            <FluidOrb size={340} />
+          <div
+            className="hero-orb"
+            onClick={toggleHeroOrb}
+            title={`ThinkingOrb state: ${heroOrbState} (Click to toggle)`}
+            style={{ cursor: 'pointer', pointerEvents: 'auto' }}
+          >
+            <ThinkingOrb state={heroOrbState} size={480} speed={1.55} />
           </div>
         </div>
       </section>

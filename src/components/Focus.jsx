@@ -13,7 +13,7 @@ const STRANDS = [
   {
     title: 'Shipping games',
     body: 'Android titles under the Arcadly name. One live on Google Play, four in the pipeline, with solvers that verify a level is fair before anyone plays it.',
-    href: 'https://arcadly-sky-hopper.vercel.app',
+    href: 'https://arcadly-studio.vercel.app',
     cue: 'Visit the studio',
     external: true,
   },

@@ -252,6 +252,34 @@ export const PROJECTS = [
     category: "data",
     image: '/assets/shopping_trends_analysis.png',
     period: "Sep 2024"
+  },
+  {
+    n: "20",
+    name: "API Monitor — Enterprise Management & System Analytics Dashboard UI/UX",
+    domain: "UI/UX Design / System Monitoring",
+    description:
+      "A high-fidelity Enterprise API Monitoring & System Analytics Dashboard UI/UX design. Features real-time log analysis, latency heatmaps, response time distribution, AI-driven anomaly predictions, multi-cloud environment benchmarking, and configurable alert thresholds.",
+    stack: ["Figma", "UI/UX Design", "Design Systems", "Dashboard Architecture", "Prototyping"],
+    github: "https://github.com/Shubham-Tambei9/API-Monitor-UI-UX-Design",
+    website: null,
+    isDesign: true,
+    category: "design",
+    image: '/assets/api_monitor_ui.png',
+    period: "Mar 2025"
+  },
+  {
+    n: "21",
+    name: "KRISHI RAKSHA — Crop Disease Detection & Advisory App UI/UX",
+    domain: "UI/UX Design / Agritech",
+    description:
+      "A mobile app UI/UX design built for Smart India Hackathon (SIH). Features AI-powered crop disease scanning, voice/text/multilingual diagnosis, Krishi AI chatbot, treatment recommendations, community disease reports, and weather warning dashboards.",
+    stack: ["Figma", "UI/UX Design", "Mobile App Design", "Design Systems", "Prototyping"],
+    github: "https://github.com/Shubham-Tambei9/Krishi-Raksha-Crop-Disease-Detection-UI-UX",
+    website: null,
+    isDesign: true,
+    category: "design",
+    placeholderIcon: 'Brain',
+    period: "Feb 2025"
   }
 ];
 

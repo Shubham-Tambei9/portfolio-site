@@ -15,7 +15,9 @@ export const PROFILE = {
   figma: 'https://www.figma.com/@Shubham_Techi9',
   leetcode: 'Shubham-Tambei9',
   leetcodeUrl: 'https://leetcode.com/u/Shubham-Tambei9/',
-  studio: { name: 'Arcadly', url: 'https://arcadly-sky-hopper.vercel.app' },
+  monkeytype: 'Shubham-Tambei9',
+  monkeytypeUrl: 'https://monkeytype.com/profile/Shubham-Tambei9',
+  studio: { name: 'Arcadly', url: 'https://arcadly-studio.vercel.app' },
 };
 
 export const ROLES = [
@@ -38,5 +40,5 @@ export const LINKS = [
   { label: 'X', href: 'https://x.com/Shubham_Techi9', handle: '@Shubham_Techi9' },
   { label: 'LeetCode', href: 'https://leetcode.com/u/Shubham-Tambei9/', handle: '@Shubham-Tambei9' },
   { label: 'Figma', href: 'https://www.figma.com/@Shubham_Techi9', handle: '@Shubham_Techi9' },
-  { label: 'Arcadly', href: 'https://arcadly-sky-hopper.vercel.app', handle: 'Game studio' },
+  { label: 'Arcadly', href: 'https://arcadly-studio.vercel.app', handle: 'Game studio' },
 ];

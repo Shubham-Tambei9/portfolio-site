@@ -61,15 +61,53 @@ function yearDays(map, year) {
   return out;
 }
 
-/* Monkeytype ships an array whose LAST entry is `lastDay`. */
+/* Parse Monkeytype's sparse array into a date-keyed count map. */
+function getMonkeytypeMap(data) {
+  const arr = data?.testsByDays;
+  const last = data?.lastDay;
+  if (!Array.isArray(arr) || !last) return {};
+  const byDate = {};
+  arr.forEach((v, i) => {
+    const d = new Date(last - (arr.length - 1 - i) * 86400000);
+    if (!Number.isNaN(d.getTime())) {
+      byDate[dayKey(d)] = (byDate[dayKey(d)] || 0) + (Number(v) || 0);
+    }
+  });
+  return byDate;
+}
+
+/* Build a continuous list of days from earliest recorded date up to today. */
 function expandMonkeytype(data) {
   const arr = data?.testsByDays;
   const last = data?.lastDay;
   if (!Array.isArray(arr) || !last) return [];
-  return arr.map((v, i) => {
-    const d = new Date(last - (arr.length - 1 - i) * 86400000);
-    return { date: dayKey(d), count: Number(v) || 0 };
-  });
+
+  const byDate = getMonkeytypeMap(data);
+  const today = new Date();
+  const lastDate = new Date(last);
+  const endDate = today > lastDate ? today : lastDate;
+  const earliestDate = new Date(last - (arr.length - 1) * 86400000);
+
+  const out = [];
+  const cur = new Date(earliestDate);
+  while (cur <= endDate) {
+    const k = dayKey(cur);
+    out.push({ date: k, count: byDate[k] || 0 });
+    cur.setUTCDate(cur.getUTCDate() + 1);
+  }
+  return out;
+}
+
+/* Build a full calendar year of days from a { "YYYY-MM-DD": count } map. */
+function yearDaysByDate(byDate, year) {
+  const out = [];
+  const cur = new Date(Date.UTC(year, 0, 1));
+  while (cur.getUTCFullYear() === year) {
+    const k = dayKey(cur);
+    out.push({ date: k, count: byDate[k] || 0 });
+    cur.setUTCDate(cur.getUTCDate() + 1);
+  }
+  return out;
 }
 
 function RangePicker({ options, value, onChange }) {
@@ -192,6 +230,7 @@ export default function Activity() {
   }, []);
 
   /* ---------- Monkeytype ---------- */
+  const mtMap = useMemo(() => getMonkeytypeMap(monkeytypeData), []);
   const mtAll = useMemo(() => expandMonkeytype(monkeytypeData), []);
   const [mtRange, setMtRange] = useState('last');
 
@@ -220,7 +259,7 @@ export default function Activity() {
   const ghDays = ghCache[ghRange] || [];
   const lcDays = lcRange === 'last' ? expandCalendar(lc.map) : yearDays(lc.map, Number(lcRange));
   const mtDays =
-    mtRange === 'last' ? mtAll.slice(-371) : mtAll.filter((d) => yearOf(d.date) === Number(mtRange));
+    mtRange === 'last' ? mtAll.slice(-371) : yearDaysByDate(mtMap, Number(mtRange));
 
   const rangeLabel = (id) => (id === 'last' ? 'last 12 months' : `in ${id}`);
 
@@ -311,7 +350,7 @@ export default function Activity() {
           )}
 
           {tab === 'monkeytype' && (
-            <Panel status="ok" profileUrl={`https://monkeytype.com/profile/${PROFILE.github}`}>
+            <Panel status="ok" profileUrl={PROFILE.monkeytypeUrl || `https://monkeytype.com/profile/${PROFILE.monkeytype || PROFILE.github}`}>
               <>
                 <div className="act-head">
                   <div className="act-stats">
@@ -322,11 +361,11 @@ export default function Activity() {
                     <RangePicker options={mtOptions} value={mtRange} onChange={setMtRange} />
                     <a
                       className="act-link"
-                      href={`https://monkeytype.com/profile/${PROFILE.github}`}
+                      href={PROFILE.monkeytypeUrl || `https://monkeytype.com/profile/${PROFILE.monkeytype || PROFILE.github}`}
                       target="_blank"
                       rel="noreferrer"
                     >
-                      @{PROFILE.github} ↗
+                      @{PROFILE.monkeytype || PROFILE.github} ↗
                     </a>
                   </div>
                 </div>
