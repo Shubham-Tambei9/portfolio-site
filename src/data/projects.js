@@ -13,7 +13,18 @@ export const PROJECTS = [
     website: null,
     category: "mldl",
     image: '/assets/medical_analysis.png',
-    period: "Jan 2025 - May 2025"
+    period: "Jan 2025 - May 2025",
+    details: {
+      role: "ML Engineer & Researcher",
+      highlights: [
+        "Built CNN-based classification models for medical image datasets (X-rays, MRI scans)",
+        "Implemented data augmentation pipelines to handle limited medical datasets",
+        "Achieved high diagnostic accuracy using transfer learning with pre-trained models",
+        "Integrated OpenCV for image preprocessing and segmentation",
+        "Evaluated model performance using ROC-AUC, precision, recall metrics",
+      ],
+      impact: "Demonstrates potential for reducing radiologist workload and improving early disease detection in clinical settings.",
+    },
   },
   {
     n: "02",
@@ -26,7 +37,18 @@ export const PROJECTS = [
     website: null,
     category: "web",
     image: '/assets/compare_it.png',
-    period: "Mar 2024 - Jun 2024"
+    period: "Mar 2024 - Jun 2024",
+    details: {
+      role: "Full-Stack Developer",
+      highlights: [
+        "Scraped real-time product data from multiple e-commerce platforms using BeautifulSoup & Requests",
+        "Built a Django REST backend for data storage, search, and comparison logic",
+        "Stored and managed product listings in MongoDB for fast retrieval",
+        "Designed a responsive HTML/CSS frontend for easy product comparison",
+        "Handled anti-bot measures with request throttling and user-agent rotation",
+      ],
+      impact: "Helps consumers instantly compare prices across platforms, saving time and money on online purchases.",
+    },
   },
   {
     n: "03",
@@ -39,7 +61,18 @@ export const PROJECTS = [
     website: null,
     category: "web",
     image: '/assets/smart_coaster.png',
-    period: "Sep 2024 - Dec 2024"
+    period: "Sep 2024 - Dec 2024",
+    details: {
+      role: "IoT Hardware Engineer",
+      highlights: [
+        "Integrated MLX90614 infrared sensor for contactless temperature measurement",
+        "Used NodeMCU (ESP8266) for Wi-Fi connectivity and cloud data transmission",
+        "Developed real-time temperature alerts via the Blynk mobile app",
+        "Programmed Arduino Uno for sensor data acquisition and serial communication",
+        "Designed PCB layout and assembled hardware prototype end-to-end",
+      ],
+      impact: "A practical IoT prototype demonstrating real-world sensor integration, wireless communication, and mobile app control.",
+    },
   },
   {
     n: "04",
@@ -52,7 +85,18 @@ export const PROJECTS = [
     website: null,
     category: "data",
     placeholderIcon: 'Cpu',
-    period: "Oct 2023 - Nov 2023"
+    period: "Oct 2023 - Nov 2023",
+    details: {
+      role: "Algorithm Developer",
+      highlights: [
+        "Modelled city road networks as weighted graphs with hospital nodes",
+        "Implemented Dijkstra's shortest-path algorithm for nearest hospital lookup",
+        "Built a desktop GUI using Java Swing for interactive map navigation",
+        "Optimized graph traversal for large node counts using priority queues",
+        "Supported multiple criteria: distance, emergency availability, specialty",
+      ],
+      impact: "Can reduce critical response times in emergencies by instantly routing patients to the nearest appropriate facility.",
+    },
   },
   {
     n: "05",
@@ -65,7 +109,18 @@ export const PROJECTS = [
     website: null,
     category: "web",
     placeholderIcon: 'Code2',
-    period: "Feb 2024 - Apr 2024"
+    period: "Feb 2024 - Apr 2024",
+    details: {
+      role: "Full-Stack Web Developer",
+      highlights: [
+        "Built a Flask web app with user authentication (login/register) for students",
+        "Implemented file upload, download, and management for PDF/DOCX notes",
+        "Designed relational database schema with SQLAlchemy ORM",
+        "Added subject-wise categorisation and search functionality",
+        "Deployed with a clean, responsive UI using HTML/CSS/JavaScript",
+      ],
+      impact: "Facilitates peer-to-peer knowledge sharing among students, improving access to quality academic resources.",
+    },
   },
   {
     n: "06",
@@ -78,7 +133,18 @@ export const PROJECTS = [
     website: null,
     category: "web",
     placeholderIcon: 'Database',
-    period: "Aug 2023 - Oct 2023"
+    period: "Aug 2023 - Oct 2023",
+    details: {
+      role: "Java Desktop Developer",
+      highlights: [
+        "Built a full-featured desktop app with Java Swing for tour and booking management",
+        "Connected to a MySQL database via JDBC for persistent data storage",
+        "Implemented CRUD operations for destinations, packages, and customer bookings",
+        "Designed admin and user dashboards with role-based access control",
+        "Integrated booking confirmation, invoice generation, and reporting features",
+      ],
+      impact: "Provides a complete back-office solution for travel agencies to manage tours, customers, and revenue efficiently.",
+    },
   },
   {
     n: "07",
@@ -92,7 +158,18 @@ export const PROJECTS = [
     website: "https://www.figma.com/@Shubham_Techi9",
     category: "design",
     image: '/assets/central_bank.png',
-    period: "Dec 2024 - Jan 2025"
+    period: "Dec 2024 - Jan 2025",
+    details: {
+      role: "UI/UX Designer",
+      highlights: [
+        "Conducted UX audit of the existing Central Bank app and identified usability pain points",
+        "Redesigned the entire app flow — onboarding, dashboard, transfers, and statements",
+        "Followed WCAG 2.1 accessibility guidelines for inclusive design",
+        "Created high-fidelity interactive prototypes in Figma",
+        "Applied a clean, modern design system with consistent components and tokens",
+      ],
+      impact: "Modernised banking UX to reduce friction for users, with particular improvements in accessibility and navigation clarity.",
+    },
   },
   {
     n: "08",
@@ -105,7 +182,18 @@ export const PROJECTS = [
     website: null,
     category: "web",
     image: '/assets/ecommerce_platform.png',
-    period: "Feb 2025 - Present"
+    period: "Feb 2025 - Present",
+    details: {
+      role: "Full-Stack Developer",
+      highlights: [
+        "Built with Next.js App Router for SSR/SSG performance optimisation",
+        "Implemented product listings, cart, checkout, and order management flows",
+        "Designed a responsive storefront with Tailwind CSS utility-first styling",
+        "Built a Node.js/Express REST API with MongoDB for product and user data",
+        "Added JWT-based authentication and role-based access for admin panel",
+      ],
+      impact: "A production-ready e-commerce foundation capable of scaling for real-world retail use cases.",
+    },
   },
   {
     n: "09",
@@ -118,7 +206,18 @@ export const PROJECTS = [
     website: null,
     category: "mldl",
     placeholderIcon: 'Brain',
-    period: "May 2025 - Jun 2025"
+    period: "May 2025 - Jun 2025",
+    details: {
+      role: "ML Developer",
+      highlights: [
+        "Trained and evaluated multiple classifiers: Logistic Regression, SVM, Random Forest, XGBoost",
+        "Performed EDA on the Cleveland Heart Disease dataset with Pandas & Matplotlib",
+        "Applied feature engineering and hyperparameter tuning for best accuracy",
+        "Deployed prediction model as a REST API using Flask",
+        "Achieved ~87% accuracy with the best-performing ensemble model",
+      ],
+      impact: "Assists healthcare professionals with early-stage risk screening using readily available clinical data.",
+    },
   },
   {
     n: "10",
@@ -132,7 +231,18 @@ export const PROJECTS = [
     isDesign: true,
     category: "design",
     image: "https://github.com/user-attachments/assets/9d585302-b802-4fc0-be53-926c489b9c86",
-    period: "Jan 2025"
+    period: "Jan 2025",
+    details: {
+      role: "UI/UX Designer",
+      highlights: [
+        "Designed a dark-themed crypto dashboard with real-time chart and portfolio widgets",
+        "Created asset overview, trading pair comparison, and wallet management screens",
+        "Developed a full component library and design system in Figma",
+        "Designed interactive prototypes showing data drill-down and filtering flows",
+        "Balanced information density with visual clarity for power users",
+      ],
+      impact: "A polished dashboard design that demonstrates expertise in data-heavy UI with high visual fidelity.",
+    },
   },
   {
     n: "11",
@@ -146,7 +256,18 @@ export const PROJECTS = [
     isDesign: true,
     category: "design",
     image: "https://github.com/user-attachments/assets/2d668496-0b1e-4ee9-b428-dc400b9c8d47",
-    period: "Feb 2025"
+    period: "Feb 2025",
+    details: {
+      role: "UI/UX Designer",
+      highlights: [
+        "Designed a full hospital management system UI covering patient records, appointments, and analytics",
+        "Applied calm, medical-grade colour palette with high contrast for clinical environments",
+        "Created doctor, nurse, and admin role-specific dashboards",
+        "Designed appointment scheduling, patient vitals monitoring, and billing screens",
+        "Produced a complete Figma prototype with interactive navigation flows",
+      ],
+      impact: "Demonstrates ability to design complex, multi-role enterprise healthcare software with clarity and care.",
+    },
   },
   {
     n: "12",
@@ -160,7 +281,18 @@ export const PROJECTS = [
     isDesign: true,
     category: "design",
     image: "https://github.com/user-attachments/assets/048110a8-ad1e-42b3-be71-d576676c21d3",
-    period: "Mar 2025"
+    period: "Mar 2025",
+    details: {
+      role: "UI/UX Designer",
+      highlights: [
+        "Designed a trainer portfolio showcasing courses, reviews, achievements, and bio",
+        "Created a minimal and modern card-based layout for course listings",
+        "Designed student progress tracking and earnings analytics widgets",
+        "Developed a cohesive typography system and spacing grid in Figma",
+        "Delivered an interactive prototype with screen transitions",
+      ],
+      impact: "A clean portfolio template design for educators on e-learning platforms like Udemy or Coursera.",
+    },
   },
   {
     n: "13",
@@ -173,7 +305,18 @@ export const PROJECTS = [
     website: null,
     category: "web",
     image: "https://github.com/user-attachments/assets/fdf1ee68-ee04-4858-b9d2-c2436e83569f",
-    period: "Feb 2025"
+    period: "Feb 2025",
+    details: {
+      role: "Full-Stack AI Developer",
+      highlights: [
+        "Integrated Google Gemini API to generate YouTube-ready thumbnails from text prompts",
+        "Built a MERN stack app with React frontend and Node.js/Express backend",
+        "Implemented user authentication, generation history, and image download features",
+        "Stored user sessions and generated images metadata in MongoDB",
+        "Designed an intuitive prompt builder UI for non-technical users",
+      ],
+      impact: "Empowers content creators to generate professional thumbnails instantly, drastically reducing design time.",
+    },
   },
   {
     n: "14",
@@ -186,7 +329,18 @@ export const PROJECTS = [
     website: null,
     category: "web",
     image: "https://github.com/user-attachments/assets/96c8c130-6d1f-4cdb-9587-bbc53f3a221e",
-    period: "Nov 2024"
+    period: "Nov 2024",
+    details: {
+      role: "Full-Stack MERN Developer",
+      highlights: [
+        "Developed a property listing and booking system for landlords and tenants",
+        "Implemented JWT-based authentication with separate landlord and tenant roles",
+        "Built property search with filters for location, price range, and amenities",
+        "Created booking management system with approval/rejection workflow for landlords",
+        "Designed responsive UI with React for seamless mobile and desktop browsing",
+      ],
+      impact: "A complete rental management solution bridging landlords and tenants with a structured booking workflow.",
+    },
   },
   {
     n: "15",
@@ -199,7 +353,18 @@ export const PROJECTS = [
     website: null,
     category: "web",
     placeholderIcon: 'Brain',
-    period: "Dec 2024"
+    period: "Dec 2024",
+    details: {
+      role: "Backend / DevOps Engineer",
+      highlights: [
+        "Built real-time API monitoring pipeline with Kafka for event streaming",
+        "Integrated OpenTelemetry for distributed tracing across microservices",
+        "Used ELK Stack (Elasticsearch, Logstash, Kibana) for log aggregation and dashboards",
+        "Implemented AI-based anomaly detection to flag latency spikes and error surges",
+        "Containerised the entire system with Docker for portable deployment",
+      ],
+      impact: "Provides enterprise-grade observability for distributed APIs, enabling proactive incident detection before users are impacted.",
+    },
   },
   {
     n: "16",
@@ -212,7 +377,18 @@ export const PROJECTS = [
     website: null,
     category: "data",
     image: "https://github.com/user-attachments/assets/50b9772b-ed70-47fb-b54c-14ecb0943dc2",
-    period: "Aug 2024"
+    period: "Aug 2024",
+    details: {
+      role: "Data Analyst",
+      highlights: [
+        "Analysed patient admission data across departments and diagnosis categories",
+        "Built interactive Power BI dashboards with drill-down filters and KPI cards",
+        "Identified top billing patterns and seasonal admission trends from Excel data",
+        "Visualised staff performance and feedback scores for HR insights",
+        "Delivered actionable insights to optimise ward capacity and resource allocation",
+      ],
+      impact: "Gives hospital administrators a real-time data command centre to make informed operational and financial decisions.",
+    },
   },
   {
     n: "17",
@@ -225,7 +401,18 @@ export const PROJECTS = [
     website: null,
     category: "data",
     image: "https://github.com/user-attachments/assets/4359d768-8277-4b13-b3c3-a2d93cc3d143",
-    period: "Jul 2024"
+    period: "Jul 2024",
+    details: {
+      role: "Data Analyst",
+      highlights: [
+        "Wrote complex SQL queries to analyse ride bookings, cancellations, and revenue",
+        "Identified peak booking hours, high-demand zones, and cancellation patterns",
+        "Analysed payment method preferences and customer segmentation by ride frequency",
+        "Created dynamic Power BI dashboards with slicers for time, city, and category",
+        "Derived recommendations to reduce cancellation rates and improve driver allocation",
+      ],
+      impact: "Provides ride-hailing companies with actionable intelligence to optimise operations and reduce revenue loss from cancellations.",
+    },
   },
   {
     n: "18",
@@ -238,7 +425,18 @@ export const PROJECTS = [
     website: null,
     category: "data",
     image: '/assets/telecom_churn_analytics.png',
-    period: "Oct 2024"
+    period: "Oct 2024",
+    details: {
+      role: "Data Scientist",
+      highlights: [
+        "Built churn prediction models using Random Forest and Decision Tree classifiers in R",
+        "Applied SMOTE to handle severe class imbalance in the telecom churn dataset",
+        "Performed feature importance analysis to identify top churn drivers",
+        "Visualised model results and EDA insights with ggplot2",
+        "Evaluated models using AUC-ROC, F1-score, and confusion matrices",
+      ],
+      impact: "Enables telecom companies to proactively identify at-risk customers and launch targeted retention campaigns.",
+    },
   },
   {
     n: "19",
@@ -251,7 +449,18 @@ export const PROJECTS = [
     website: null,
     category: "data",
     image: '/assets/shopping_trends_analysis.png',
-    period: "Sep 2024"
+    period: "Sep 2024",
+    details: {
+      role: "Data Analyst",
+      highlights: [
+        "Performed comprehensive EDA on a customer shopping dataset using Pandas & NumPy",
+        "Analysed purchase frequency, category preferences, and demographic correlations",
+        "Identified seasonal shopping trends and high-value customer segments",
+        "Created detailed visualisations with Matplotlib and Seaborn",
+        "Delivered a report with actionable retail recommendations based on data findings",
+      ],
+      impact: "Provides retail businesses with customer behavioural insights to drive targeted marketing and inventory decisions.",
+    },
   },
   {
     n: "20",
@@ -265,7 +474,18 @@ export const PROJECTS = [
     isDesign: true,
     category: "design",
     image: '/assets/api_monitor_ui.png',
-    period: "Mar 2025"
+    period: "Mar 2025",
+    details: {
+      role: "UI/UX Designer",
+      highlights: [
+        "Designed a high-fidelity enterprise API monitoring dashboard in Figma",
+        "Included latency heatmaps, response time distribution charts, and log viewers",
+        "Designed AI anomaly prediction panels with alert configuration UI",
+        "Created multi-cloud environment benchmarking views for DevOps teams",
+        "Built a complete Figma design system with reusable monitoring components",
+      ],
+      impact: "A reference-quality design for enterprise DevOps tooling, combining data density with usability for engineering teams.",
+    },
   },
   {
     n: "21",
@@ -279,8 +499,19 @@ export const PROJECTS = [
     isDesign: true,
     category: "design",
     placeholderIcon: 'Brain',
-    period: "Feb 2025"
-  }
+    period: "Feb 2025",
+    details: {
+      role: "UI/UX Designer (SIH Team)",
+      highlights: [
+        "Designed a complete mobile app UI for AI-based crop disease detection and advisory",
+        "Created multilingual onboarding and voice-input diagnosis flows for rural farmers",
+        "Designed Krishi AI chatbot interface with treatment recommendations and alerts",
+        "Built community disease reporting and weather warning dashboard screens",
+        "Delivered high-fidelity Figma prototype with full navigation and micro-interactions",
+      ],
+      impact: "Addresses a critical agricultural need — designed for Smart India Hackathon to bring AI crop advisory to 140M+ Indian farmers.",
+    },
+  },
 ];
 
 export const CATEGORY_META = {

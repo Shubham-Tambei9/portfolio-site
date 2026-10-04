@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { PROFILE, ROLES, STATS, LINKS } from '../data/profile.js';
 import { PROJECTS, CATEGORY_META, CATEGORIES } from '../data/projects.js';
 import { RESEARCH_PAPERS } from '../data/research.js';
@@ -18,7 +18,107 @@ const KPIS = [
   { value: '1', label: 'Game live on Play' },
 ];
 
-function ProjectCard({ p }) {
+/* ── Project Info Modal ── */
+function ProjectModal({ p, onClose }) {
+  const meta = CATEGORY_META[p.category] || {};
+
+  useEffect(() => {
+    const handler = (e) => { if (e.key === 'Escape') onClose(); };
+    window.addEventListener('keydown', handler);
+    return () => window.removeEventListener('keydown', handler);
+  }, [onClose]);
+
+  useEffect(() => {
+    document.body.style.overflow = 'hidden';
+    return () => { document.body.style.overflow = ''; };
+  }, []);
+
+  return (
+    <div className="modal-backdrop" onClick={onClose} role="dialog" aria-modal="true" aria-label={p.name}>
+      <div className="modal-panel" onClick={(e) => e.stopPropagation()}>
+        <div className="modal-header">
+          <div className="modal-header-top">
+            <span
+              className="proj-badge"
+              style={{
+                position: 'static',
+                background: `${meta.color}22`,
+                borderColor: `${meta.color}55`,
+                color: meta.color,
+              }}
+            >
+              {meta.label || p.domain}
+            </span>
+            <button className="modal-close" onClick={onClose} aria-label="Close">✕</button>
+          </div>
+          <h2 className="modal-title">{p.name}</h2>
+          <span className="modal-period">{p.period}</span>
+          {p.details?.role && (
+            <span className="modal-role">Role: {p.details.role}</span>
+          )}
+        </div>
+
+        <div className="modal-body">
+          {p.image && (
+            <div className="modal-image-wrap">
+              <img src={p.image} alt={p.name} loading="lazy" />
+            </div>
+          )}
+
+          <div className="modal-section">
+            <span className="modal-section-label">About</span>
+            <p className="modal-desc">{p.description}</p>
+          </div>
+
+          {p.details?.highlights?.length > 0 && (
+            <div className="modal-section">
+              <span className="modal-section-label">Key Highlights</span>
+              <ul className="modal-highlights">
+                {p.details.highlights.map((h, i) => (
+                  <li key={i}>{h}</li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+          {p.details?.impact && (
+            <div className="modal-section modal-impact-wrap">
+              <span className="modal-section-label">Impact</span>
+              <p className="modal-impact">{p.details.impact}</p>
+            </div>
+          )}
+
+          <div className="modal-section">
+            <span className="modal-section-label">Tech Stack</span>
+            <div className="game-tags" style={{ marginTop: 10 }}>
+              {p.stack.map((s) => (
+                <span className="pill" key={s}>{s}</span>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <div className="modal-footer">
+          {p.github ? (
+            <a className="modal-btn modal-btn-alt" href={p.github} target="_blank" rel="noreferrer">
+              GitHub ↗
+            </a>
+          ) : (
+            <span className="modal-btn modal-btn-off">Source not public</span>
+          )}
+          {p.website && (
+            <a className="modal-btn modal-btn-primary" href={p.website} target="_blank" rel="noreferrer">
+              Live Site ↗
+            </a>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ── Project Card ── */
+function ProjectCard({ p, onInfo }) {
   const meta = CATEGORY_META[p.category] || {};
   return (
     <article className="game spot">
@@ -50,25 +150,31 @@ function ProjectCard({ p }) {
 
         <div className="game-tags">
           {p.stack.slice(0, 5).map((s) => (
-            <span className="pill" key={s}>
-              {s}
-            </span>
+            <span className="pill" key={s}>{s}</span>
           ))}
         </div>
 
+        {/* ── 3-button layout ── */}
         <div className="game-actions">
-          {p.github ? (
-            <a className="game-cta-alt" href={p.github} target="_blank" rel="noreferrer">
-              View source ↗
-            </a>
-          ) : (
-            <span className="game-cta-off">Source not public</span>
-          )}
-          {p.website && (
-            <a className="game-cta" href={p.website} target="_blank" rel="noreferrer">
-              Live site ↗
-            </a>
-          )}
+          <div className="game-actions-row">
+            {p.github ? (
+              <a className="game-cta-alt game-cta-half" href={p.github} target="_blank" rel="noreferrer">
+                GitHub ↗
+              </a>
+            ) : (
+              <span className="game-cta-off game-cta-half">No Source</span>
+            )}
+            {p.website ? (
+              <a className="game-cta game-cta-half" href={p.website} target="_blank" rel="noreferrer">
+                Live Site ↗
+              </a>
+            ) : (
+              <span className="game-cta-off game-cta-half">No Live Site</span>
+            )}
+          </div>
+          <button className="game-cta-info" onClick={() => onInfo(p)}>
+            Project Info ↓
+          </button>
         </div>
       </div>
     </article>
@@ -82,6 +188,7 @@ export default function Home() {
   const [showAll, setShowAll] = useState(false);
   const [openPaper, setOpenPaper] = useState(null);
   const [heroOrbStateIdx, setHeroOrbStateIdx] = useState(0);
+  const [modalProject, setModalProject] = useState(null);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -96,11 +203,17 @@ export default function Home() {
     setHeroOrbStateIdx((prev) => (prev + 1) % HERO_ORB_STATES.length);
   };
 
+  const handleInfo = useCallback((p) => setModalProject(p), []);
+  const closeModal = useCallback(() => setModalProject(null), []);
+
   const filtered = PROJECTS.filter((p) => cat === 'all' || p.category === cat);
   const shown = showAll ? filtered : filtered.slice(0, 6);
 
   return (
     <main id="top">
+      {/* PROJECT INFO MODAL */}
+      {modalProject && <ProjectModal p={modalProject} onClose={closeModal} />}
+
       {/* HERO */}
       <section className="hero">
         <div className="hero-glow" aria-hidden="true" />
@@ -194,7 +307,7 @@ export default function Home() {
           <Stagger className="games-grid" key={cat}>
             {shown.map((p) => (
               <StaggerItem key={p.n}>
-                <ProjectCard p={p} />
+                <ProjectCard p={p} onInfo={handleInfo} />
               </StaggerItem>
             ))}
           </Stagger>
