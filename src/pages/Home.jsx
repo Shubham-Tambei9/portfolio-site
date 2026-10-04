@@ -15,7 +15,7 @@ import { Reveal, Stagger, StaggerItem } from '../components/Motion.jsx';
 /* Counted from the data files, so these can never drift from the sections below. */
 const KPIS = [
   { value: String(PROJECTS.length), label: 'Projects built' },
-  { value: String(RESEARCH_PAPERS.length), label: 'Papers published' },
+  { value: String(RESEARCH_PAPERS.length), label: 'Research papers' },
   { value: String(SKILLS.reduce((n, s) => n + s.items.length, 0)), label: 'Technologies used' },
   { value: '1', label: 'Game live on Play' },
 ];
@@ -343,7 +343,7 @@ export default function Home() {
       <section className="section" id="research">
         <div className="wrap">
           <span className="eyebrow">Published research</span>
-          <h2 className="section-title">{RESEARCH_PAPERS.length} papers.</h2>
+          <h2 className="section-title">{RESEARCH_PAPERS.length} Research Papers.</h2>
           <p className="section-sub">
             Across Springer Nature, IEEE Xplore, ICICC/SSRN and GRENZE. Each links to the
             publisher — the abstracts are the published text, not summaries.

@@ -1,20 +1,20 @@
 export const CERTIFICATIONS = [
   {
-    title: 'Data Analyst Internship Certificate',
-    issuer: 'AICTE Edunet Foundation — Green Skills',
-    date: '2024',
+    title: 'IBM DevOps and Software Engineering Professional Certificate',
+    issuer: 'IBM',
+    date: '2025',
     credential: null,
   },
   {
-    title: 'Data Analyst Internship Certificate',
-    issuer: 'AICTE Edunet Foundation — TechSaksham (Microsoft & SAP)',
-    date: '2024',
-    credential: null,
+    title: 'HackerRank SQL (Advanced) — Top 10% (3-Star)',
+    issuer: 'HackerRank',
+    date: '2025',
+    credential: 'https://www.hackerrank.com/certificates/iframe/sql_advanced',
   },
   {
-    title: 'Python for Data Science',
-    issuer: 'NPTEL / Coursera',
-    date: '2023',
+    title: 'Data Analyst Internship Certificate',
+    issuer: 'Edunet Foundation',
+    date: '2025',
     credential: null,
   },
   {
@@ -30,15 +30,15 @@ export const CERTIFICATIONS = [
     credential: null,
   },
   {
-    title: 'UI/UX Design Fundamentals',
-    issuer: 'Figma Community / Self-certified',
-    date: '2025',
-    credential: 'https://www.figma.com/@Shubham_Techi9',
-  },
-  {
     title: 'Data Visualization with Power BI',
     issuer: 'Microsoft Learn',
     date: '2024',
     credential: null,
+  },
+  {
+    title: 'UI/UX Design Fundamentals',
+    issuer: 'Figma Community',
+    date: '2025',
+    credential: 'https://www.figma.com/@Shubham_Techi9',
   },
 ];

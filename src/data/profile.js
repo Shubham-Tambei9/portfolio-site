@@ -23,7 +23,7 @@ export const PROFILE = {
 export const ROLES = [
   'AI Research Contractor @ Handshake AI',
   'Founder & Solo Developer @ Arcadly',
-  'Published Researcher — 5 papers',
+  'Published Researcher — 5 Research Papers',
   'B.Tech IT Final Year @ VIT Pune',
 ];
 

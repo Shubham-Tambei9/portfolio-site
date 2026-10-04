@@ -1,4 +1,4 @@
-/* Roles in chronological order. The Handshake AI entry is current. */
+/* Roles in chronological order aligned with official resume. */
 export const EXPERIENCE = [
   {
     company: 'Handshake AI',
@@ -6,7 +6,7 @@ export const EXPERIENCE = [
     period: 'July 2026 — Present',
     current: true,
     detail:
-      'Building containerized evaluation environments to benchmark autonomous AI coding agents on Project Dynamo. Developing task submissions across data science/reporting and security/DFIR domains, working through the full pipeline from proposal to automated review — Pass@2, rubric scoring, and human review layers.',
+      'Build containerized evaluation environments to benchmark autonomous AI coding agents on real-world tasks. Develop and iterate task submissions in data science/reporting and security/DFIR domains, writing task specifications, reference solutions, and PyTest-based verification suites. Navigate the full submission pipeline from proposal through automated and human review.',
     tech: ['Python', 'Docker', 'PyTest', 'Bash', 'Linux CLI'],
   },
   {
@@ -15,22 +15,16 @@ export const EXPERIENCE = [
     period: '2026 — Present',
     current: true,
     detail:
-      'An independent Android game studio. Sky Hopper is live on Google Play; four more titles and one app are in the pipeline. I design, build, ship and maintain every one — including the generators and solvers that prove a level is fair before a player ever sees it.',
+      'An independent Android game studio. Sky Hopper is live on Google Play; four more titles and one app are in the pipeline. I design, build, ship and maintain every title — including the level generators and solvers.',
     tech: ['Unity', 'C#', 'Flutter', 'Dart', 'AdMob'],
     url: 'https://arcadly-studio.vercel.app',
   },
   {
-    company: 'AICTE Edunet Foundation — Green Skills',
+    company: 'Edunet Foundation',
     role: 'Data Analyst Intern',
-    period: '2023 — 2024',
-    detail: 'Performed exploratory data analysis on environmental and sustainability datasets as part of the AICTE-affiliated Green Skills programme. Cleaned and processed large datasets using Python (Pandas, NumPy), built visualisations with Matplotlib and Seaborn, and delivered insights on renewable energy trends and green technology adoption patterns.',
-    tech: ['Python', 'Pandas', 'NumPy', 'Matplotlib', 'Seaborn', 'Excel'],
-  },
-  {
-    company: 'AICTE Edunet Foundation — TechSaksham',
-    role: 'Data Analyst Intern',
-    period: '2023 — 2024',
-    detail: 'Completed a structured data analytics internship under the Microsoft & SAP-backed TechSaksham initiative. Worked on real-world data challenges including customer segmentation, churn analysis, and predictive modelling using machine learning techniques. Presented findings and recommendations to programme mentors.',
-    tech: ['Python', 'Scikit-Learn', 'Pandas', 'SQL', 'Power BI', 'Excel'],
+    period: 'April 2025 — June 2025',
+    detail:
+      'Built an ETL-style workflow in Python (Pandas, NumPy) to clean, transform, and load a 7,044-record retail dataset, automating repetitive data prep steps. Designed and wrote SQL queries using joins, subqueries, and aggregations across multiple relational tables. Applied data modeling principles and built interactive Power BI dashboards translating raw data into decision-ready visualizations.',
+    tech: ['Python', 'SQL', 'Power BI', 'Pandas', 'NumPy', 'ETL'],
   },
 ];

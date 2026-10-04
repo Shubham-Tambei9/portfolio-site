@@ -1,13 +1,23 @@
 export const SKILLS = [
   {
-    label: "Languages",
+    label: "Programming Languages",
     icon: 'Code2',
-    items: ["Python", "Java", "JavaScript", "TypeScript", "SQL", "R", "C#", "Dart"],
+    items: ["Python", "Java", "JavaScript", "SQL", "TypeScript", "R", "C#", "Dart"],
+  },
+  {
+    label: "Data & BI",
+    icon: 'Database',
+    items: ["ETL", "Power BI", "Pandas", "NumPy", "Data Cleaning & Transformation", "Data Visualization", "Excel"],
   },
   {
     label: "Web Development",
     icon: 'Cpu',
-    items: ["HTML5", "CSS3", "React.js", "Next.js", "Node.js", "Express.js", "Django", "Flask", "Bootstrap", "Tailwind CSS"],
+    items: ["React.js", "Node.js", "Express.js", "HTML5", "CSS3", "Flask", "Django", "REST APIs", "Next.js", "Tailwind CSS"],
+  },
+  {
+    label: "ML & AI",
+    icon: 'Brain',
+    items: ["Machine Learning", "Deep Learning", "LangChain", "LangGraph", "FAISS", "RAG", "Scikit-Learn", "TensorFlow", "Keras", "OpenCV"],
   },
   {
     label: "Databases",
@@ -15,24 +25,14 @@ export const SKILLS = [
     items: ["MySQL", "MongoDB", "PostgreSQL", "SQLAlchemy", "Firebase"],
   },
   {
-    label: "ML & Data Science",
-    icon: 'Brain',
-    items: ["Machine Learning", "Deep Learning", "Data Analysis", "Data Visualization", "Scikit-Learn", "TensorFlow", "Keras", "Random Forest", "XGBoost", "Pandas", "NumPy", "OpenCV", "Matplotlib", "Seaborn"],
-  },
-  {
-    label: "IoT & Hardware",
-    icon: 'Cpu',
-    items: ["Arduino Uno", "NodeMCU (ESP8266)", "MLX90614", "DHT11", "Ultrasonic Sensors", "IR Sensors", "Blynk", "ThingSpeak"],
-  },
-  {
     label: "DevOps & Cloud",
     icon: 'Wrench',
-    items: ["Docker", "Git", "GitHub", "Linux CLI", "Bash", "PyTest", "Google Cloud", "Kafka", "OpenTelemetry", "ELK Stack"],
+    items: ["Docker", "Linux CLI", "Bash", "PyTest", "Git", "GitHub", "Kafka", "OpenTelemetry", "ELK Stack", "Google Cloud"],
   },
   {
-    label: "Design & BI",
+    label: "Tools & Platforms",
     icon: 'Wrench',
-    items: ["Figma", "Power BI", "UI/UX Design", "Prototyping", "Design Systems"],
+    items: ["VS Code", "Postman", "Jupyter Notebook", "Arduino IDE", "MongoDB Compass"],
   },
   {
     label: "Game Development",
@@ -40,8 +40,8 @@ export const SKILLS = [
     items: ["Unity", "C#", "Flutter", "Dart", "AdMob", "Android SDK"],
   },
   {
-    label: "Tools & Platforms",
+    label: "Design",
     icon: 'Wrench',
-    items: ["VS Code", "Arduino IDE", "Jupyter Notebook", "Postman", "MongoDB Compass"],
+    items: ["Figma", "UI/UX Design", "Prototyping", "Design Systems"],
   },
 ];

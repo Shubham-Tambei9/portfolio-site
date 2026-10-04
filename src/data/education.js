@@ -4,7 +4,7 @@ export const EDUCATION_ITEMS = [
     degree: "Bachelor of Technology (B.Tech)",
     field: "Information Technology",
     year: "2022 — 2026",
-    status: "Final Year Graduate (2026)",
+    status: "Final Year · CGPA: 8.70 / 10",
     icon: 'GraduationCap',
     glowClass: "btech-glow"
   },
@@ -29,12 +29,12 @@ export const EDUCATION_ITEMS = [
 export const EDUCATION = {
   coursework: [
     "Data Structures & Algorithms",
-    "Database Management Systems",
+    "Object-Oriented Programming (OOP)",
+    "Database Management Systems (DBMS)",
     "Operating Systems",
     "Computer Networks",
     "Machine Learning",
-    "Data Science",
-    "Artificial Intelligence",
+    "Deep Learning",
     "Software Engineering",
     "Web Technologies",
     "Internet of Things (IoT)",
@@ -42,19 +42,18 @@ export const EDUCATION = {
 };
 
 export const ACHIEVEMENTS = [
-  "Successfully completed B.Tech Information Technology program requirements.",
-  "Developed multiple projects in AI/ML, IoT, Web Development, and Software Engineering.",
-  "Participated in UI/UX design and software development projects.",
+  "Maintained 8.70 / 10 CGPA across B.Tech Information Technology at VIT Pune.",
+  "Published 5 peer-reviewed research papers across IEEE, Springer, and Elsevier.",
+  "HackerRank SQL (Advanced) — 3-Star rating and ranked in top 10%.",
+  "IBM DevOps and Software Engineering Professional Certificate (2025).",
 ];
 
-
-/* The same ten courses, grouped so the block is scannable instead of a flat wall
-   of pills. Grouping is presentational — no course is added or renamed. */
 export const COURSEWORK_GROUPS = [
   {
     label: 'Core computer science',
     items: [
       'Data Structures & Algorithms',
+      'Object-Oriented Programming (OOP)',
       'Operating Systems',
       'Computer Networks',
       'Software Engineering',
@@ -64,9 +63,9 @@ export const COURSEWORK_GROUPS = [
     label: 'Data & intelligence',
     items: [
       'Machine Learning',
-      'Artificial Intelligence',
+      'Deep Learning',
+      'Database Management Systems (DBMS)',
       'Data Science',
-      'Database Management Systems',
     ],
   },
   {

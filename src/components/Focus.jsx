@@ -1,6 +1,9 @@
 import { useRef } from 'react';
 import { useSequence, useRailGeometry, RailLine, nodeState } from './Rail.jsx';
 
+import { PROJECTS } from '../data/projects.js';
+import { RESEARCH_PAPERS } from '../data/research.js';
+
 /* What I actually work on, sequenced on the shared rail. Each strand links to
    the section of the site that backs it up, so nothing here is a bare claim. */
 const STRANDS = [
@@ -19,13 +22,13 @@ const STRANDS = [
   },
   {
     title: 'Research',
-    body: 'Five published papers across IoT, machine learning, code optimisation and brain–computer interfaces — in Springer Nature, IEEE Xplore and others.',
+    body: `${RESEARCH_PAPERS.length} published research papers across IoT, machine learning, code optimisation and brain–computer interfaces — in Springer Nature, IEEE Xplore and others.`,
     href: '#/#research',
     cue: 'Read the papers',
   },
   {
     title: 'Building software',
-    body: 'Full-stack web, data pipelines and analysis. Nineteen projects, spanning ML, web, data and UI/UX design.',
+    body: `Full-stack web, data pipelines and analysis. ${PROJECTS.length} projects, spanning ML, web, data and UI/UX design.`,
     href: '#/#projects',
     cue: 'Browse projects',
   },
