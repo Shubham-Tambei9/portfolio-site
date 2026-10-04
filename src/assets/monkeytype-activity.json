@@ -5,8 +5,6 @@
     null,
     null,
     null,
-    null,
-    null,
     1,
     null,
     null,
@@ -371,7 +369,9 @@
     8,
     7,
     7,
-    5
+    5,
+    null,
+    7
   ],
-  "lastDay": 1790899200000
+  "lastDay": 1791072000000
 }
