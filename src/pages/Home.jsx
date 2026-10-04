@@ -4,10 +4,12 @@ import { PROJECTS, CATEGORY_META, CATEGORIES } from '../data/projects.js';
 import { RESEARCH_PAPERS } from '../data/research.js';
 import { SKILLS } from '../data/skills.js';
 import { COURSEWORK_GROUPS } from '../data/education.js';
+import { CERTIFICATIONS } from '../data/certifications.js';
 import { ThinkingOrb } from 'thinking-orbs';
 import Activity from '../components/Activity.jsx';
 import Journey from '../components/Journey.jsx';
 import Focus from '../components/Focus.jsx';
+import ContactForm from '../components/ContactForm.jsx';
 import { Reveal, Stagger, StaggerItem } from '../components/Motion.jsx';
 
 /* Counted from the data files, so these can never drift from the sections below. */
@@ -209,6 +211,11 @@ export default function Home() {
   const filtered = PROJECTS.filter((p) => cat === 'all' || p.category === cat);
   const shown = showAll ? filtered : filtered.slice(0, 6);
 
+  /* unique categories count for dynamic heading */
+  const disciplineCount = Object.keys(
+    PROJECTS.reduce((acc, p) => { acc[p.category] = true; return acc; }, {})
+  ).length;
+
   return (
     <main id="top">
       {/* PROJECT INFO MODAL */}
@@ -231,12 +238,22 @@ export default function Home() {
           <p className="hero-tagline">{PROFILE.tagline}</p>
           <p className="hero-blurb">{PROFILE.bio}</p>
 
+          {/* #1 — Resume download + actions */}
           <div className="hero-actions">
             <a className="btn btn-primary" href="#/#projects">
               See the work
             </a>
             <a className="btn btn-ghost" href={`mailto:${PROFILE.email}`}>
               Get in touch
+            </a>
+            <a
+              className="btn btn-resume"
+              href="/assets/resume.pdf"
+              download="Shubham_Tambe_Resume.pdf"
+              target="_blank"
+              rel="noreferrer"
+            >
+              ↓ Resume
             </a>
           </div>
 
@@ -272,14 +289,14 @@ export default function Home() {
 
       <Focus />
 
-      {/* PROJECTS */}
+      {/* PROJECTS — #16 dynamic heading */}
       <section className="section" id="projects">
         <div className="wrap">
           <span className="eyebrow">The work</span>
           <h2 className="section-title">
-            Nineteen projects,
+            {PROJECTS.length} projects,
             <br />
-            four disciplines.
+            {disciplineCount} disciplines.
           </h2>
           <p className="section-sub">
             Machine learning, web, data analysis and interface design. Where a repo is public it is
@@ -326,7 +343,7 @@ export default function Home() {
       <section className="section" id="research">
         <div className="wrap">
           <span className="eyebrow">Published research</span>
-          <h2 className="section-title">Five papers.</h2>
+          <h2 className="section-title">{RESEARCH_PAPERS.length} papers.</h2>
           <p className="section-sub">
             Across Springer Nature, IEEE Xplore, ICICC/SSRN and GRENZE. Each links to the
             publisher — the abstracts are the published text, not summaries.
@@ -400,7 +417,7 @@ export default function Home() {
 
       <Journey />
 
-      {/* SKILLS */}
+      {/* SKILLS + CERTIFICATIONS */}
       <section className="section" id="skills">
         <div className="wrap">
           <span className="eyebrow">Toolkit</span>
@@ -446,18 +463,42 @@ export default function Home() {
               ))}
             </Stagger>
           </div>
+
+          {/* #2 — Certifications section */}
+          <div className="certs-wrap">
+            <div className="coursework-head">
+              <span className="stack-group-title">Certifications</span>
+              <span className="coursework-src">{CERTIFICATIONS.length} certificates</span>
+            </div>
+            <Stagger className="certs-grid">
+              {CERTIFICATIONS.map((c) => (
+                <StaggerItem className="cert-card spot" key={c.title}>
+                  <div className="cert-top">
+                    <span className="cert-issuer">{c.issuer}</span>
+                    <span className="cert-date">{c.date}</span>
+                  </div>
+                  <p className="cert-title">{c.title}</p>
+                  {c.credential && (
+                    <a className="cert-link" href={c.credential} target="_blank" rel="noreferrer">
+                      View credential ↗
+                    </a>
+                  )}
+                </StaggerItem>
+              ))}
+            </Stagger>
+          </div>
         </div>
       </section>
 
       <Activity />
 
-      {/* CONTACT */}
+      {/* CONTACT — #10 contact form + #20 Figma link highlighted */}
       <section className="section" id="contact">
         <div className="wrap">
           <Reveal>
             <span className="eyebrow">Get in touch</span>
             <h2 className="section-title">
-              Let’s build
+              Let's build
               <br />
               something.
             </h2>
@@ -466,6 +507,14 @@ export default function Home() {
               development and research.
             </p>
           </Reveal>
+
+          {/* Contact form */}
+          <ContactForm />
+
+          {/* Social links */}
+          <div className="contact-divider">
+            <span>or reach me directly</span>
+          </div>
 
           <Stagger className="link-grid">
             <StaggerItem>
@@ -477,7 +526,12 @@ export default function Home() {
             </StaggerItem>
             {LINKS.map((l) => (
               <StaggerItem key={l.label}>
-                <a className="link-card spot" href={l.href} target="_blank" rel="noreferrer">
+                <a
+                  className={`link-card spot ${l.label === 'Figma' ? 'link-card-featured' : ''}`}
+                  href={l.href}
+                  target="_blank"
+                  rel="noreferrer"
+                >
                   <span className="link-label">{l.label}</span>
                   <span className="link-handle">{l.handle}</span>
                   <span className="link-arrow">↗</span>

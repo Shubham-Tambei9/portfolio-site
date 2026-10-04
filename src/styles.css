@@ -1830,3 +1830,144 @@ img { max-width: 100%; display: block; }
 @media (prefers-reduced-motion: reduce) {
   .hm-week, .hm-month, .hm-legend { opacity: 1; transform: none; animation: none; }
 }
+
+/* ===============================================================
+   ADDITIONS — items #1 #2 #10 #13 #14 #15 #20
+   =============================================================== */
+
+/* ── #13  Light theme variables ── */
+[data-theme="light"] {
+  --bg: #f8f9fa;
+  --bg-raised: #ffffff;
+  --bg-card: #ffffff;
+  --line: rgba(0,0,0,0.08);
+  --line-strong: rgba(0,0,0,0.16);
+  --text: #111113;
+  --text-dim: #52525b;
+  --muted: #71717a;
+}
+[data-theme="light"] body { background: var(--bg); color: var(--text); }
+
+/* ── #13  Theme toggle button ── */
+.theme-toggle {
+  position: fixed; top: 18px; right: 18px; z-index: 8000;
+  width: 38px; height: 38px; border-radius: 50%;
+  border: 1px solid var(--line-strong);
+  background: var(--bg-card); color: var(--text);
+  font-size: 17px; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: border-color 0.2s ease, background 0.2s ease;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.25);
+}
+.theme-toggle:hover { border-color: var(--green); }
+/* push left enough that it doesn't overlap the Hire me CTA */
+@media (min-width: 720px) { .theme-toggle { right: 24px; top: 22px; } }
+
+/* ── #1  Resume download button ── */
+.btn-resume {
+  display: inline-flex; align-items: center; gap: 7px;
+  font-family: var(--mono); font-size: 13px; font-weight: 700;
+  padding: 12px 20px; border-radius: 10px;
+  border: 1px solid rgba(34,197,94,0.5); color: var(--green-bright);
+  background: rgba(34,197,94,0.08);
+  transition: all 0.22s ease;
+}
+.btn-resume:hover { background: rgba(34,197,94,0.18); border-color: var(--green); color: var(--green); }
+
+/* ── #14  Back to top ── */
+.back-to-top {
+  position: fixed; bottom: 28px; right: 24px; z-index: 7000;
+  width: 42px; height: 42px; border-radius: 50%;
+  border: 1px solid var(--line-strong);
+  background: var(--bg-card); color: var(--text);
+  font-size: 18px; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: border-color 0.2s ease, background 0.2s ease, transform 0.2s ease;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+}
+.back-to-top:hover { border-color: var(--green); color: var(--green); transform: translateY(-3px); }
+
+/* ── #2  Certifications ── */
+.certs-wrap { margin-top: 44px; }
+.certs-grid {
+  display: grid; gap: 14px; margin-top: 20px;
+  grid-template-columns: 1fr;
+}
+@media (min-width: 640px) { .certs-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1024px) { .certs-grid { grid-template-columns: repeat(3, 1fr); } }
+.cert-card {
+  border: 1px solid var(--line); border-radius: 14px;
+  background: var(--bg-card); padding: 18px 20px;
+  display: flex; flex-direction: column; gap: 8px;
+  transition: border-color 0.25s ease;
+}
+.cert-card:hover { border-color: rgba(34,197,94,0.35); }
+.cert-top { display: flex; align-items: center; justify-content: space-between; gap: 8px; flex-wrap: wrap; }
+.cert-issuer { font-family: var(--mono); font-size: 10px; color: var(--green-bright); flex: 1; }
+.cert-date { font-family: var(--mono); font-size: 10px; color: var(--muted); flex-shrink: 0; }
+.cert-title { font-size: 14px; font-weight: 700; margin: 0; line-height: 1.4; }
+.cert-link {
+  font-family: var(--mono); font-size: 11px; color: var(--green-bright);
+  transition: color 0.2s; margin-top: 4px;
+}
+.cert-link:hover { color: var(--green); }
+
+/* ── #10  Contact form ── */
+.contact-form {
+  display: flex; flex-direction: column; gap: 16px;
+  margin-top: 36px; max-width: 680px;
+}
+.cf-row { display: grid; gap: 16px; grid-template-columns: 1fr; }
+@media (min-width: 560px) { .cf-row { grid-template-columns: 1fr 1fr; } }
+.cf-field { display: flex; flex-direction: column; gap: 7px; }
+.cf-label { font-family: var(--mono); font-size: 10.5px; color: var(--muted); letter-spacing: 0.08em; text-transform: uppercase; }
+.cf-input {
+  background: var(--bg-card); border: 1px solid var(--line-strong);
+  border-radius: 10px; color: var(--text);
+  font-family: var(--sans); font-size: 14px;
+  padding: 12px 14px; outline: none;
+  transition: border-color 0.2s ease;
+  width: 100%;
+}
+.cf-input:focus { border-color: var(--green); }
+.cf-input::placeholder { color: var(--muted); }
+.cf-textarea { resize: vertical; min-height: 120px; }
+.cf-error { font-size: 13px; color: #f87171; margin: 0; font-family: var(--mono); }
+.cf-submit { align-self: flex-start; }
+.cf-done {
+  display: flex; flex-direction: column; align-items: flex-start; gap: 14px;
+  padding: 28px; border: 1px solid rgba(34,197,94,0.35);
+  border-radius: 14px; background: rgba(34,197,94,0.06);
+  margin-top: 36px; max-width: 480px;
+}
+.cf-done-icon { font-size: 28px; color: var(--green); }
+.cf-done-msg { font-size: 15px; color: var(--text-dim); margin: 0; line-height: 1.6; }
+
+/* ── Contact divider ── */
+.contact-divider {
+  display: flex; align-items: center; gap: 16px;
+  margin: 32px 0 20px; color: var(--muted);
+  font-family: var(--mono); font-size: 11px;
+}
+.contact-divider::before, .contact-divider::after {
+  content: ''; flex: 1; height: 1px; background: var(--line-strong);
+}
+
+/* ── #20  Figma featured link card ── */
+.link-card-featured {
+  border-color: rgba(161,87,255,0.4) !important;
+  background: rgba(161,87,255,0.06) !important;
+}
+.link-card-featured .link-label { color: #c084fc; }
+.link-card-featured .link-handle { color: #a855f7; }
+.link-card-featured:hover { border-color: #a855f7 !important; }
+
+/* ── #15  Card skeleton loader ── */
+.game-skeleton {
+  border-radius: 18px; height: 340px;
+  background: linear-gradient(90deg, var(--bg-card) 25%, var(--bg-raised) 50%, var(--bg-card) 75%);
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 1.4s infinite;
+}
+@keyframes skeleton-shimmer { to { background-position: -200% 0; } }
+

@@ -31,7 +31,7 @@ export const ROLES = [
    a public profile. Nothing is rounded up or estimated. */
 export const STATS = {
   source: 'Counts derived from this site’s own data · GitHub and Google Play read live',
-  asOf: 'Aug 26, 2026',
+  asOf: new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' }),
 };
 
 export const LINKS = [

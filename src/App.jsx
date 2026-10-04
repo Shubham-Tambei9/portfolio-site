@@ -4,13 +4,18 @@ import Backdrop from './components/Backdrop.jsx';
 import ScrollRail from './components/ScrollRail.jsx';
 import Nav from './components/Nav.jsx';
 import Feedback from './components/Feedback.jsx';
+import BackToTop from './components/BackToTop.jsx';
+import ThemeToggle from './components/ThemeToggle.jsx';
 import Home from './pages/Home.jsx';
+import NotFound from './pages/NotFound.jsx';
 
+/* #9 — Added Skills and Journey to nav */
 const NAV = [
   { id: 'focus', label: 'Focus' },
   { id: 'projects', label: 'Projects' },
   { id: 'research', label: 'Research' },
   { id: 'journey', label: 'Journey' },
+  { id: 'skills', label: 'Skills' },
   { id: 'contact', label: 'Contact' },
 ];
 
@@ -25,17 +30,7 @@ const RAIL_SECTIONS = [
   { id: 'contact', label: 'Contact' },
 ];
 
-/* Hash routing: "#/route#section". Splitting route from section keeps section
-   links deep-linkable while one place decides scroll behaviour.
- *
- * Two things stop the page reopening half way down:
- *   - scroll restoration is set to manual, so the browser does not put a
- *     reloaded SPA back where it was before the content had rendered
- *   - once a section scroll has run, the section is stripped from the URL with
- *     replaceState. A shared "#/#research" link still lands on Research, but the
- *     address bar settles back to "#/" so opening or reloading the site later
- *     always starts at the top. replaceState fires no hashchange, so this cannot
- *     loop. */
+/* Hash routing: "#/route#section". */
 function parseHash(h) {
   const raw = (h || '#/').replace(/^#/, '');
   const [route, section] = raw.split('#');
@@ -44,8 +39,6 @@ function parseHash(h) {
 
 function useHashRoute() {
   const [hash, setHash] = useState(() => window.location.hash || '#/');
-  // Remembers which page we were on, so clearing a section never counts as
-  // navigation and therefore never yanks the view back to the top.
   const prevRoute = useRef(null);
 
   useEffect(() => {
@@ -68,10 +61,6 @@ function useHashRoute() {
         const el = document.getElementById(section);
         if (el) {
           el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-          // Drop the section so a later reload starts at the top again, and keep
-          // React in step: replaceState fires no hashchange, so without this the
-          // stored hash would stay stale and clicking the same link twice would
-          // produce no state change, and no scroll.
           const clean = `#${route}`;
           window.history.replaceState(null, '', clean);
           setHash(clean);
@@ -79,8 +68,6 @@ function useHashRoute() {
         }
       }
 
-      // Only reset on a real page change. Without this guard the cleanup above
-      // re-enters here with section === null and cancels the scroll it just did.
       if (routeChanged) window.scrollTo({ top: 0, behavior: 'auto' });
     });
     return () => cancelAnimationFrame(id);
@@ -90,7 +77,10 @@ function useHashRoute() {
 }
 
 export default function App() {
-  useHashRoute();
+  const { route } = useHashRoute();
+
+  /* #11 — Dynamic copyright year */
+  const year = new Date().getFullYear();
 
   return (
     <>
@@ -101,9 +91,18 @@ export default function App() {
         links={NAV}
         brand={{ name: PROFILE.first.toUpperCase(), logo: '/assets/avatar.jpg' }}
         cta={{ href: `mailto:${PROFILE.email}`, label: 'Hire me' }}
+        /* #13 — ThemeToggle passed as extra slot */
+        extra={null}
       />
 
-      <Home />
+      {/* #13 — Theme toggle floats in top-right */}
+      <ThemeToggle />
+
+      {/* #17 — 404 routing */}
+      {route === '/' ? <Home /> : <NotFound />}
+
+      {/* #14 — Back to top */}
+      <BackToTop />
 
       <footer className="footer">
         <div className="wrap">
@@ -135,6 +134,9 @@ export default function App() {
                 <a href={PROFILE.linkedin} target="_blank" rel="noreferrer">
                   LinkedIn
                 </a>
+                <a href={PROFILE.figma} target="_blank" rel="noreferrer">
+                  Figma
+                </a>
                 <a href={PROFILE.studio.url} target="_blank" rel="noreferrer">
                   Arcadly (game studio)
                 </a>
@@ -143,7 +145,8 @@ export default function App() {
             </div>
           </div>
 
-          <p className="footer-note">© 2026 {PROFILE.name}</p>
+          {/* #11 — Dynamic year */}
+          <p className="footer-note">© {year} {PROFILE.name}</p>
         </div>
       </footer>
     </>

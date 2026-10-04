@@ -23,12 +23,14 @@ export const EXPERIENCE = [
     company: 'AICTE Edunet Foundation — Green Skills',
     role: 'Data Analyst Intern',
     period: '2023 — 2024',
-    detail: 'Data analysis work as part of the AICTE-affiliated Green Skills programme.',
+    detail: 'Performed exploratory data analysis on environmental and sustainability datasets as part of the AICTE-affiliated Green Skills programme. Cleaned and processed large datasets using Python (Pandas, NumPy), built visualisations with Matplotlib and Seaborn, and delivered insights on renewable energy trends and green technology adoption patterns.',
+    tech: ['Python', 'Pandas', 'NumPy', 'Matplotlib', 'Seaborn', 'Excel'],
   },
   {
     company: 'AICTE Edunet Foundation — TechSaksham',
     role: 'Data Analyst Intern',
     period: '2023 — 2024',
-    detail: 'Data analysis work as part of the AICTE-affiliated TechSaksham programme.',
+    detail: 'Completed a structured data analytics internship under the Microsoft & SAP-backed TechSaksham initiative. Worked on real-world data challenges including customer segmentation, churn analysis, and predictive modelling using machine learning techniques. Presented findings and recommendations to programme mentors.',
+    tech: ['Python', 'Scikit-Learn', 'Pandas', 'SQL', 'Power BI', 'Excel'],
   },
 ];
