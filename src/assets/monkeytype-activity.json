@@ -2,7 +2,6 @@
   "testsByDays": [
     null,
     null,
-    null,
     1,
     null,
     null,
@@ -371,7 +370,8 @@
     null,
     12,
     6,
-    7
+    7,
+    6
   ],
-  "lastDay": 1791244800000
+  "lastDay": 1791331200000
 }
