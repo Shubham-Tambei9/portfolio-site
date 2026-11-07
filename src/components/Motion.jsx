@@ -5,7 +5,7 @@ import { motion, useReducedMotion } from 'framer-motion';
    when the user asks for less motion, elements render in their final state rather
    than animating. */
 
-export function Reveal({ children, delay = 0, y = 18, className, ...rest }) {
+export function Reveal({ children, delay = 0, y = 20, className, ...rest }) {
   const reduce = useReducedMotion();
   if (reduce) return <div className={className} {...rest}>{children}</div>;
 
@@ -14,8 +14,8 @@ export function Reveal({ children, delay = 0, y = 18, className, ...rest }) {
       className={className}
       initial={{ opacity: 0, y }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.2 }}
-      transition={{ duration: 0.55, delay, ease: [0.16, 1, 0.3, 1] }}
+      viewport={{ once: true, amount: 0.15 }}
+      transition={{ duration: 0.72, delay, ease: [0.16, 1, 0.3, 1] }}
       {...rest}
     >
       {children}
@@ -29,7 +29,7 @@ export function Reveal({ children, delay = 0, y = 18, className, ...rest }) {
    happened when a list expanded (e.g. "Show all projects"): the new items were
    in the DOM at opacity 0. Holding animate="show" means late children inherit
    the shown variant and animate in normally. */
-export function Stagger({ children, className, gap = 0.07, ...rest }) {
+export function Stagger({ children, className, gap = 0.08, ...rest }) {
   const reduce = useReducedMotion();
   const [entered, setEntered] = useState(false);
 
@@ -58,8 +58,8 @@ export function StaggerItem({ children, className, ...rest }) {
     <motion.div
       className={className}
       variants={{
-        hidden: { opacity: 0, y: 16 },
-        show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] } },
+        hidden: { opacity: 0, y: 18 },
+        show: { opacity: 1, y: 0, transition: { duration: 0.65, ease: [0.16, 1, 0.3, 1] } },
       }}
       {...rest}
     >
@@ -83,8 +83,8 @@ export function GrowBar({ pct, className, vertical = false, style }) {
       style={style}
       initial={{ [dim]: 0 }}
       whileInView={{ [dim]: `${pct}%` }}
-      viewport={{ once: true, amount: 0.4 }}
-      transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+      viewport={{ once: true, amount: 0.3 }}
+      transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1] }}
     />
   );
 }

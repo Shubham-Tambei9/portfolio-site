@@ -11,6 +11,7 @@ import Journey from '../components/Journey.jsx';
 import Focus from '../components/Focus.jsx';
 import ContactForm from '../components/ContactForm.jsx';
 import { Reveal, Stagger, StaggerItem } from '../components/Motion.jsx';
+import { motion, AnimatePresence } from 'framer-motion';
 
 /* Counted from the data files, so these can never drift from the sections below. */
 const KPIS = [
@@ -36,8 +37,25 @@ function ProjectModal({ p, onClose }) {
   }, []);
 
   return (
-    <div className="modal-backdrop" onClick={onClose} role="dialog" aria-modal="true" aria-label={p.name}>
-      <div className="modal-panel" onClick={(e) => e.stopPropagation()}>
+    <motion.div
+      className="modal-backdrop"
+      onClick={onClose}
+      role="dialog"
+      aria-modal="true"
+      aria-label={p.name}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.32, ease: [0.16, 1, 0.3, 1] }}
+    >
+      <motion.div
+        className="modal-panel"
+        onClick={(e) => e.stopPropagation()}
+        initial={{ opacity: 0, y: 26, scale: 0.96 }}
+        animate={{ opacity: 1, y: 0, scale: 1 }}
+        exit={{ opacity: 0, y: 16, scale: 0.97 }}
+        transition={{ duration: 0.38, ease: [0.16, 1, 0.3, 1] }}
+      >
         <div className="modal-header">
           <div className="modal-header-top">
             <span
@@ -63,7 +81,7 @@ function ProjectModal({ p, onClose }) {
         <div className="modal-body">
           {p.image && (
             <div className="modal-image-wrap">
-              <img src={p.image} alt={p.name} loading="lazy" />
+              <img src={p.image} alt={p.name} loading="lazy" onError={(e) => { e.currentTarget.parentElement.style.display = 'none'; }} />
             </div>
           )}
 
@@ -114,8 +132,8 @@ function ProjectModal({ p, onClose }) {
             </a>
           )}
         </div>
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 }
 
@@ -126,7 +144,15 @@ function ProjectCard({ p, onInfo }) {
     <article className="game spot">
       {p.image ? (
         <div className="proj-shot">
-          <img src={p.image} alt="" loading="lazy" />
+          <img
+            src={p.image}
+            alt={p.name}
+            loading="lazy"
+            onError={(e) => {
+              e.currentTarget.parentElement.classList.add('proj-shot-empty');
+              e.currentTarget.style.display = 'none';
+            }}
+          />
           <span
             className="proj-badge"
             style={{ background: `${meta.color}22`, borderColor: `${meta.color}55`, color: meta.color }}
@@ -219,7 +245,9 @@ export default function Home() {
   return (
     <main id="top">
       {/* PROJECT INFO MODAL */}
-      {modalProject && <ProjectModal p={modalProject} onClose={closeModal} />}
+      <AnimatePresence>
+        {modalProject && <ProjectModal p={modalProject} onClose={closeModal} />}
+      </AnimatePresence>
 
       {/* HERO */}
       <section className="hero">
@@ -363,40 +391,48 @@ export default function Home() {
                     <h3 className="paper-title">{p.title}</h3>
                   </div>
 
-                  {open && (
-                    <div className="paper-body">
-                      <div className="paper-abstract-col">
-                        <span className="paper-sublabel">Abstract</span>
-                        <p className="paper-abstract">{p.abstract}</p>
-                      </div>
-
-                      <aside className="paper-aside">
-                        {p.authors && (
-                          <div className="paper-aside-block">
-                            <span className="paper-sublabel">Authors</span>
-                            <p className="paper-aside-text">{p.authors}</p>
-                          </div>
-                        )}
-                        <div className="paper-aside-block">
-                          <span className="paper-sublabel">Published in</span>
-                          <p className="paper-aside-text">{p.journal}</p>
-                          <p className="paper-aside-dim">{p.date}</p>
+                  <AnimatePresence initial={false}>
+                    {open && (
+                      <motion.div
+                        className="paper-body"
+                        initial={{ opacity: 0, height: 0, overflow: 'hidden' }}
+                        animate={{ opacity: 1, height: 'auto', transitionEnd: { overflow: 'visible' } }}
+                        exit={{ opacity: 0, height: 0, overflow: 'hidden' }}
+                        transition={{ duration: 0.42, ease: [0.16, 1, 0.3, 1] }}
+                      >
+                        <div className="paper-abstract-col">
+                          <span className="paper-sublabel">Abstract</span>
+                          <p className="paper-abstract">{p.abstract}</p>
                         </div>
-                        {!!p.keywords?.length && (
-                          <div className="paper-aside-block">
-                            <span className="paper-sublabel">Keywords</span>
-                            <div className="game-tags" style={{ marginTop: 10 }}>
-                              {p.keywords.slice(0, 10).map((k) => (
-                                <span className="pill" key={k}>
-                                  {k}
-                                </span>
-                              ))}
+
+                        <aside className="paper-aside">
+                          {p.authors && (
+                            <div className="paper-aside-block">
+                              <span className="paper-sublabel">Authors</span>
+                              <p className="paper-aside-text">{p.authors}</p>
                             </div>
+                          )}
+                          <div className="paper-aside-block">
+                            <span className="paper-sublabel">Published in</span>
+                            <p className="paper-aside-text">{p.journal}</p>
+                            <p className="paper-aside-dim">{p.date}</p>
                           </div>
-                        )}
-                      </aside>
-                    </div>
-                  )}
+                          {!!p.keywords?.length && (
+                            <div className="paper-aside-block">
+                              <span className="paper-sublabel">Keywords</span>
+                              <div className="game-tags" style={{ marginTop: 10 }}>
+                                {p.keywords.slice(0, 10).map((k) => (
+                                  <span className="pill" key={k}>
+                                    {k}
+                                  </span>
+                                ))}
+                              </div>
+                            </div>
+                          )}
+                        </aside>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
 
                   <div className="paper-actions">
                     <button className="mini-btn" onClick={() => setOpenPaper(open ? null : i)}>
@@ -503,7 +539,7 @@ export default function Home() {
               something.
             </h2>
             <p className="section-sub">
-              Open to internships, full-time roles and collaborations in AI/ML, software
+              Open to full-time roles and collaborations in AI/ML, software
               development and research.
             </p>
           </Reveal>

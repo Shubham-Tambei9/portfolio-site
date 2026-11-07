@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { FEEDBACK_ENDPOINT, FEEDBACK_EMAIL, FEEDBACK_TOPICS, FEEDBACK_COPY } from '../data/config.js';
 
 /* Site-wide feedback widget.
@@ -111,137 +112,150 @@ export default function Feedback() {
         {FEEDBACK_COPY.launch}
       </button>
 
-      {open && (
-        <div className="fb-overlay" onMouseDown={(e) => e.target === e.currentTarget && setOpen(false)}>
-          <div
-            className="fb-panel"
-            ref={panelRef}
-            role="dialog"
-            aria-modal="true"
-            aria-label="Send feedback"
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            className="fb-overlay"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+            onMouseDown={(e) => e.target === e.currentTarget && setOpen(false)}
           >
-            <div className="fb-head">
-              <div>
-                <h2 className="fb-title">{FEEDBACK_COPY.title}</h2>
-                <p className="fb-sub">{FEEDBACK_COPY.sub}</p>
+            <motion.div
+              className="fb-panel"
+              ref={panelRef}
+              role="dialog"
+              aria-modal="true"
+              aria-label="Send feedback"
+              initial={{ opacity: 0, y: 24, scale: 0.96 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 16, scale: 0.97 }}
+              transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+            >
+              <div className="fb-head">
+                <div>
+                  <h2 className="fb-title">{FEEDBACK_COPY.title}</h2>
+                  <p className="fb-sub">{FEEDBACK_COPY.sub}</p>
+                </div>
+                <button className="fb-close" onClick={() => setOpen(false)} aria-label="Close">
+                  ✕
+                </button>
               </div>
-              <button className="fb-close" onClick={() => setOpen(false)} aria-label="Close">
-                ✕
-              </button>
-            </div>
 
-            {state === 'sent' || state === 'mail' ? (
-              <div className="fb-done">
-                <span className="fb-done-mark" aria-hidden="true">
-                  ✓
-                </span>
-                <h3 className="fb-done-title">
-                  {state === 'sent' ? 'Message sent.' : 'Your mail app is opening.'}
-                </h3>
-                <p className="fb-done-body">
-                  {state === 'sent'
-                    ? 'Thanks — this lands in my inbox directly.'
-                    : 'Your message is pre-filled and ready. It is only sent once you press send in your own mail app.'}
-                </p>
-                <div className="fb-done-actions">
-                  <button className="btn btn-ghost" onClick={reset}>
-                    Write another
-                  </button>
-                  <button className="btn btn-primary" onClick={() => setOpen(false)}>
-                    Done
-                  </button>
-                </div>
-              </div>
-            ) : (
-              <form className="fb-form" onSubmit={submit}>
-                <div className="fb-field">
-                  <label className="fb-label">What is this about?</label>
-                  <div className="fb-topics">
-                    {FEEDBACK_TOPICS.map((t, i) => (
-                      <button
-                        key={t.id}
-                        type="button"
-                        ref={i === 0 ? firstFieldRef : null}
-                        className={`fb-topic ${topic === t.id ? 'fb-topic-on' : ''}`}
-                        onClick={() => setTopic(t.id)}
-                        aria-pressed={topic === t.id}
-                      >
-                        {t.label}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-
-                <div className="fb-field">
-                  <label className="fb-label">
-                    {FEEDBACK_COPY.ratingLabel} <span className="fb-optional">optional</span>
-                  </label>
-                  <div className="fb-stars">
-                    {[1, 2, 3, 4, 5].map((n) => (
-                      <button
-                        key={n}
-                        type="button"
-                        className={`fb-star ${rating >= n ? 'fb-star-on' : ''}`}
-                        onClick={() => setRating(rating === n ? 0 : n)}
-                        aria-label={`${n} out of 5`}
-                        aria-pressed={rating === n}
-                      >
-                        ★
-                      </button>
-                    ))}
-                    {rating > 0 && <span className="fb-rating-val">{rating}/5</span>}
-                  </div>
-                </div>
-
-                <div className="fb-field">
-                  <label className="fb-label" htmlFor="fb-msg">
-                    {FEEDBACK_COPY.messageLabel}
-                  </label>
-                  <textarea
-                    id="fb-msg"
-                    className="fb-textarea"
-                    value={message}
-                    maxLength={MAX}
-                    onChange={(e) => setMessage(e.target.value)}
-                    placeholder={FEEDBACK_COPY.placeholder}
-                    rows={5}
-                  />
-                  <span className="fb-count">
-                    {message.length}/{MAX}
+              {state === 'sent' || state === 'mail' ? (
+                <div className="fb-done">
+                  <span className="fb-done-mark" aria-hidden="true">
+                    ✓
                   </span>
-                </div>
-
-                <div className="fb-field">
-                  <label className="fb-label" htmlFor="fb-email">
-                    Email <span className="fb-optional">optional — only if you want a reply</span>
-                  </label>
-                  <input
-                    id="fb-email"
-                    className="fb-input"
-                    type="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    placeholder="you@example.com"
-                  />
-                </div>
-
-                {error && <p className="fb-error">{error}</p>}
-
-                <div className="fb-actions">
-                  <p className="fb-note">
-                    {usesMail
-                      ? 'This opens your mail app with the message ready — nothing is sent until you press send there.'
-                      : 'Sent directly to the developer. Nothing else is collected.'}
+                  <h3 className="fb-done-title">
+                    {state === 'sent' ? 'Message sent.' : 'Your mail app is opening.'}
+                  </h3>
+                  <p className="fb-done-body">
+                    {state === 'sent'
+                      ? 'Thanks — this lands in my inbox directly.'
+                      : 'Your message is pre-filled and ready. It is only sent once you press send in your own mail app.'}
                   </p>
-                  <button className="btn btn-primary" type="submit" disabled={state === 'sending'}>
-                    {state === 'sending' ? 'Sending…' : usesMail ? 'Open mail app' : FEEDBACK_COPY.cta}
-                  </button>
+                  <div className="fb-done-actions">
+                    <button className="btn btn-ghost" onClick={reset}>
+                      Write another
+                    </button>
+                    <button className="btn btn-primary" onClick={() => setOpen(false)}>
+                      Done
+                    </button>
+                  </div>
                 </div>
-              </form>
-            )}
-          </div>
-        </div>
-      )}
+              ) : (
+                <form className="fb-form" onSubmit={submit}>
+                  <div className="fb-field">
+                    <label className="fb-label">What is this about?</label>
+                    <div className="fb-topics">
+                      {FEEDBACK_TOPICS.map((t, i) => (
+                        <button
+                          key={t.id}
+                          type="button"
+                          ref={i === 0 ? firstFieldRef : null}
+                          className={`fb-topic ${topic === t.id ? 'fb-topic-on' : ''}`}
+                          onClick={() => setTopic(t.id)}
+                          aria-pressed={topic === t.id}
+                        >
+                          {t.label}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="fb-field">
+                    <label className="fb-label">
+                      {FEEDBACK_COPY.ratingLabel} <span className="fb-optional">optional</span>
+                    </label>
+                    <div className="fb-stars">
+                      {[1, 2, 3, 4, 5].map((n) => (
+                        <button
+                          key={n}
+                          type="button"
+                          className={`fb-star ${rating >= n ? 'fb-star-on' : ''}`}
+                          onClick={() => setRating(rating === n ? 0 : n)}
+                          aria-label={`${n} out of 5`}
+                          aria-pressed={rating === n}
+                        >
+                          ★
+                        </button>
+                      ))}
+                      {rating > 0 && <span className="fb-rating-val">{rating}/5</span>}
+                    </div>
+                  </div>
+
+                  <div className="fb-field">
+                    <label className="fb-label" htmlFor="fb-msg">
+                      {FEEDBACK_COPY.messageLabel}
+                    </label>
+                    <textarea
+                      id="fb-msg"
+                      className="fb-textarea"
+                      value={message}
+                      maxLength={MAX}
+                      onChange={(e) => setMessage(e.target.value)}
+                      placeholder={FEEDBACK_COPY.placeholder}
+                      rows={5}
+                    />
+                    <span className="fb-count">
+                      {message.length}/{MAX}
+                    </span>
+                  </div>
+
+                  <div className="fb-field">
+                    <label className="fb-label" htmlFor="fb-email">
+                      Email <span className="fb-optional">optional — only if you want a reply</span>
+                    </label>
+                    <input
+                      id="fb-email"
+                      className="fb-input"
+                      type="email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      placeholder="you@example.com"
+                    />
+                  </div>
+
+                  {error && <p className="fb-error">{error}</p>}
+
+                  <div className="fb-actions">
+                    <p className="fb-note">
+                      {usesMail
+                        ? 'This opens your mail app with the message ready — nothing is sent until you press send there.'
+                        : 'Sent directly to the developer. Nothing else is collected.'}
+                    </p>
+                    <button className="btn btn-primary" type="submit" disabled={state === 'sending'}>
+                      {state === 'sending' ? 'Sending…' : usesMail ? 'Open mail app' : FEEDBACK_COPY.cta}
+                    </button>
+                  </div>
+                </form>
+              )}
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </>
   );
 }

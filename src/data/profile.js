@@ -5,7 +5,7 @@ export const PROFILE = {
   kicker: 'AI research · software · games',
   title: 'AI Research Contractor & Software Developer',
   tagline: 'I build things that check their own work.',
-  bio: 'Final-year B.Tech Information Technology student at VIT Pune. I work as an AI Research Contractor at Handshake AI, run a small Android game studio, and publish research — the common thread is systems that verify a result rather than assume one.',
+  bio: 'B.Tech Information Technology graduate from VIT Pune. I work as an AI Research Contractor at Handshake AI, run a small Android game studio, and publish research — the common thread is systems that verify a result rather than assume one.',
   location: 'Pune, India',
   email: 'tambeshubham2004@gmail.com',
   github: 'Shubham-Tambei9',
@@ -24,7 +24,7 @@ export const ROLES = [
   'AI Research Contractor @ Handshake AI',
   'Founder & Solo Developer @ Arcadly',
   'Published Researcher — 5 Research Papers',
-  'B.Tech IT Final Year @ VIT Pune',
+  'B.Tech IT Graduate @ VIT Pune',
 ];
 
 /* Every figure here is countable from the data files in this folder, or read off

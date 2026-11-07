@@ -4,7 +4,7 @@ export const EDUCATION_ITEMS = [
     degree: "Bachelor of Technology (B.Tech)",
     field: "Information Technology",
     year: "2022 — 2026",
-    status: "Final Year · CGPA: 8.70 / 10",
+    status: "Graduated · CGPA: 8.70 / 10",
     icon: 'GraduationCap',
     glowClass: "btech-glow"
   },
@@ -42,7 +42,7 @@ export const EDUCATION = {
 };
 
 export const ACHIEVEMENTS = [
-  "Maintained 8.70 / 10 CGPA across B.Tech Information Technology at VIT Pune.",
+  "Graduated with 8.70 / 10 CGPA in B.Tech Information Technology from VIT Pune.",
   "Published 5 peer-reviewed research papers across IEEE, Springer, and Elsevier.",
   "HackerRank SQL (Advanced) — 3-Star rating and ranked in top 10%.",
   "IBM DevOps and Software Engineering Professional Certificate (2025).",

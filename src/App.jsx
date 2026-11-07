@@ -5,7 +5,7 @@ import ScrollRail from './components/ScrollRail.jsx';
 import Nav from './components/Nav.jsx';
 import Feedback from './components/Feedback.jsx';
 import BackToTop from './components/BackToTop.jsx';
-import ThemeToggle from './components/ThemeToggle.jsx';
+
 import Home from './pages/Home.jsx';
 import NotFound from './pages/NotFound.jsx';
 
@@ -95,8 +95,8 @@ export default function App() {
         extra={null}
       />
 
-      {/* #13 — Theme toggle floats in top-right */}
-      <ThemeToggle />
+
+
 
       {/* #17 — 404 routing */}
       {route === '/' ? <Home /> : <NotFound />}

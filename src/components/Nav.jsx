@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
-import { motion, useReducedMotion } from 'framer-motion';
+import ThemeToggle from './ThemeToggle.jsx';
+import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 
 /* Floating capsule nav. Detached from the top edge, glass-blurred, with an
    indicator that slides between links via a shared layoutId. Condenses once the
@@ -65,7 +66,7 @@ export default function Nav({ links, cta, brand, extra = null }) {
   return (
     <header className={`navx ${scrolled ? 'navx-scrolled' : ''}`}>
       <div className="navx-inner">
-        <a className="navx-brand" href="#/">
+        <a className="navx-brand" href="#/" onClick={() => setMenuOpen(false)}>
           <img src={brand.logo} alt="" />
           <span>{brand.name}</span>
         </a>
@@ -84,7 +85,7 @@ export default function Nav({ links, cta, brand, extra = null }) {
                   <motion.span
                     layoutId="navx-indicator"
                     className="navx-indicator"
-                    transition={{ type: 'spring', stiffness: 420, damping: 34 }}
+                    transition={{ type: 'spring', stiffness: 320, damping: 28, mass: 0.8 }}
                   />
                 )}
                 {on && reduce && <span className="navx-indicator" />}
@@ -100,6 +101,7 @@ export default function Nav({ links, cta, brand, extra = null }) {
         </nav>
 
         <div className="navx-right">
+          <ThemeToggle />
           {cta && (
             <a className="navx-cta" href={cta.href} target="_blank" rel="noreferrer">
               <span className="navx-cta-dot" />
@@ -118,32 +120,40 @@ export default function Nav({ links, cta, brand, extra = null }) {
         </div>
       </div>
 
-      {menuOpen && (
-        <nav className="navx-drawer">
-          {links.map((l) => (
-            <a
-              key={l.id}
-              href={`#/#${l.id}`}
-              onClick={(e) => {
-                sectionClick(l.id)(e);
-                setMenuOpen(false);
-              }}
-            >
-              {l.label}
-            </a>
-          ))}
-          {extra && (
-            <a href={extra.href} onClick={() => setMenuOpen(false)}>
-              {extra.label}
-            </a>
-          )}
-          {cta && (
-            <a className="navx-drawer-cta" href={cta.href} target="_blank" rel="noreferrer">
-              {cta.label}
-            </a>
-          )}
-        </nav>
-      )}
+      <AnimatePresence>
+        {menuOpen && (
+          <motion.nav
+            className="navx-drawer"
+            initial={{ opacity: 0, y: -10, scale: 0.98 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -8, scale: 0.98 }}
+            transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
+          >
+            {links.map((l) => (
+              <a
+                key={l.id}
+                href={`#/#${l.id}`}
+                onClick={(e) => {
+                  sectionClick(l.id)(e);
+                  setMenuOpen(false);
+                }}
+              >
+                {l.label}
+              </a>
+            ))}
+            {extra && (
+              <a href={extra.href} onClick={() => setMenuOpen(false)}>
+                {extra.label}
+              </a>
+            )}
+            {cta && (
+              <a className="navx-drawer-cta" href={cta.href} target="_blank" rel="noreferrer">
+                {cta.label}
+              </a>
+            )}
+          </motion.nav>
+        )}
+      </AnimatePresence>
     </header>
   );
 }

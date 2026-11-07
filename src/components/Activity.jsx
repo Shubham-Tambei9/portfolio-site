@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import Heatmap from './Heatmap.jsx';
 import { PROFILE } from '../data/profile.js';
 import monkeytypeData from '../assets/monkeytype-activity.json';
@@ -294,88 +295,114 @@ export default function Activity() {
         </div>
 
         <div className="act-card">
-          {tab === 'github' && (
-            <Panel status={ghStatus} profileUrl={PROFILE.githubUrl}>
-              <>
-                <div className="act-head">
-                  <div className="act-stats">
-                    <span className="act-figure">{total(ghDays)}</span>
-                    <span className="act-label">contributions · {rangeLabel(ghRange)}</span>
-                  </div>
-                  <div className="act-right">
-                    <RangePicker options={ghOptions} value={ghRange} onChange={setGhRange} />
-                    <a className="act-link" href={PROFILE.githubUrl} target="_blank" rel="noreferrer">
-                      @{PROFILE.github} ↗
-                    </a>
-                  </div>
-                </div>
-                <Heatmap days={ghDays} ramp="green" unit="contributions" />
-              </>
-            </Panel>
-          )}
+          <AnimatePresence mode="wait">
+            {tab === 'github' && (
+              <motion.div
+                key="github"
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -6 }}
+                transition={{ duration: 0.32, ease: [0.16, 1, 0.3, 1] }}
+              >
+                <Panel status={ghStatus} profileUrl={PROFILE.githubUrl}>
+                  <>
+                    <div className="act-head">
+                      <div className="act-stats">
+                        <span className="act-figure">{total(ghDays)}</span>
+                        <span className="act-label">contributions · {rangeLabel(ghRange)}</span>
+                      </div>
+                      <div className="act-right">
+                        <RangePicker options={ghOptions} value={ghRange} onChange={setGhRange} />
+                        <a className="act-link" href={PROFILE.githubUrl} target="_blank" rel="noreferrer">
+                          @{PROFILE.github} ↗
+                        </a>
+                      </div>
+                    </div>
+                    <Heatmap days={ghDays} ramp="green" unit="contributions" />
+                  </>
+                </Panel>
+              </motion.div>
+            )}
 
-          {tab === 'leetcode' && (
-            <Panel status={lc.status} profileUrl={PROFILE.leetcodeUrl}>
-              <>
-                <div className="act-head">
-                  <div className="act-stats">
-                    <span className="act-figure">{lc.solved?.solvedProblem ?? '—'}</span>
-                    <span className="act-label">problems solved · all time</span>
-                  </div>
-                  <div className="act-right">
-                    <RangePicker options={lcOptions} value={lcRange} onChange={setLcRange} />
-                    <a className="act-link" href={PROFILE.leetcodeUrl} target="_blank" rel="noreferrer">
-                      @{PROFILE.leetcode} ↗
-                    </a>
-                  </div>
-                </div>
+            {tab === 'leetcode' && (
+              <motion.div
+                key="leetcode"
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -6 }}
+                transition={{ duration: 0.32, ease: [0.16, 1, 0.3, 1] }}
+              >
+                <Panel status={lc.status} profileUrl={PROFILE.leetcodeUrl}>
+                  <>
+                    <div className="act-head">
+                      <div className="act-stats">
+                        <span className="act-figure">{lc.solved?.solvedProblem ?? '—'}</span>
+                        <span className="act-label">problems solved · all time</span>
+                      </div>
+                      <div className="act-right">
+                        <RangePicker options={lcOptions} value={lcRange} onChange={setLcRange} />
+                        <a className="act-link" href={PROFILE.leetcodeUrl} target="_blank" rel="noreferrer">
+                          @{PROFILE.leetcode} ↗
+                        </a>
+                      </div>
+                    </div>
 
-                {lc.solved && (
-                  <div className="act-split">
-                    <span className="act-chip act-easy">Easy {lc.solved.easySolved}</span>
-                    <span className="act-chip act-med">Medium {lc.solved.mediumSolved}</span>
-                    <span className="act-chip act-hard">Hard {lc.solved.hardSolved}</span>
-                    <span className="act-chip">
-                      {total(lcDays)} submissions {rangeLabel(lcRange)}
-                    </span>
-                    {lc.meta.activeDays != null && (
-                      <span className="act-chip">{lc.meta.activeDays} active days</span>
+                    {lc.solved && (
+                      <div className="act-split">
+                        <span className="act-chip act-easy">Easy {lc.solved.easySolved}</span>
+                        <span className="act-chip act-med">Medium {lc.solved.mediumSolved}</span>
+                        <span className="act-chip act-hard">Hard {lc.solved.hardSolved}</span>
+                        <span className="act-chip">
+                          {total(lcDays)} submissions {rangeLabel(lcRange)}
+                        </span>
+                        {lc.meta.activeDays != null && (
+                          <span className="act-chip">{lc.meta.activeDays} active days</span>
+                        )}
+                      </div>
                     )}
-                  </div>
-                )}
 
-                <Heatmap days={lcDays} ramp="amber" unit="submissions" />
-              </>
-            </Panel>
-          )}
+                    <Heatmap days={lcDays} ramp="amber" unit="submissions" />
+                  </>
+                </Panel>
+              </motion.div>
+            )}
 
-          {tab === 'monkeytype' && (
-            <Panel status="ok" profileUrl={PROFILE.monkeytypeUrl || `https://monkeytype.com/profile/${PROFILE.monkeytype || PROFILE.github}`}>
-              <>
-                <div className="act-head">
-                  <div className="act-stats">
-                    <span className="act-figure">{total(mtDays)}</span>
-                    <span className="act-label">typing tests · {rangeLabel(mtRange)}</span>
-                  </div>
-                  <div className="act-right">
-                    <RangePicker options={mtOptions} value={mtRange} onChange={setMtRange} />
-                    <a
-                      className="act-link"
-                      href={PROFILE.monkeytypeUrl || `https://monkeytype.com/profile/${PROFILE.monkeytype || PROFILE.github}`}
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      @{PROFILE.monkeytype || PROFILE.github} ↗
-                    </a>
-                  </div>
-                </div>
-                <Heatmap days={mtDays} ramp="violet" unit="tests" />
-                <p className="act-note">
-                  Refreshed every two hours by a GitHub Action that commits the data into this repo.
-                </p>
-              </>
-            </Panel>
-          )}
+            {tab === 'monkeytype' && (
+              <motion.div
+                key="monkeytype"
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -6 }}
+                transition={{ duration: 0.32, ease: [0.16, 1, 0.3, 1] }}
+              >
+                <Panel status="ok" profileUrl={PROFILE.monkeytypeUrl || `https://monkeytype.com/profile/${PROFILE.monkeytype || PROFILE.github}`}>
+                  <>
+                    <div className="act-head">
+                      <div className="act-stats">
+                        <span className="act-figure">{total(mtDays)}</span>
+                        <span className="act-label">typing tests · {rangeLabel(mtRange)}</span>
+                      </div>
+                      <div className="act-right">
+                        <RangePicker options={mtOptions} value={mtRange} onChange={setMtRange} />
+                        <a
+                          className="act-link"
+                          href={PROFILE.monkeytypeUrl || `https://monkeytype.com/profile/${PROFILE.monkeytype || PROFILE.github}`}
+                          target="_blank"
+                          rel="noreferrer"
+                        >
+                          @{PROFILE.monkeytype || PROFILE.github} ↗
+                        </a>
+                      </div>
+                    </div>
+                    <Heatmap days={mtDays} ramp="violet" unit="tests" />
+                    <p className="act-note">
+                      Refreshed every two hours by a GitHub Action that commits the data into this repo.
+                    </p>
+                  </>
+                </Panel>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
       </div>
     </section>
