@@ -66,3 +66,5 @@ hash-based, so no rewrite rules are required.
 - `_archive/` holds the previous single-file build and unused assets. It is
   gitignored and nothing imports from it.
 - Motion respects `prefers-reduced-motion` throughout.
+
+<!-- Verified Portfolio Site -->
